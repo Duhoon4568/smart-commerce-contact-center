@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Lock, FileText, CheckCircle2, Sparkles, Scale, Building, ArrowUpRight, Stamp } from 'lucide-react';
+import { Send, Lock, FileText, CheckCircle2, Sparkles, Scale, Mic, MicOff, Shield, Smartphone, Globe, Activity, ArrowRight } from 'lucide-react';
 
 export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, onStatusChange }) {
   const [composerMode, setComposerMode] = useState('reply'); // 'reply' (Formal Order) or 'note' (Green Sheet Note)
   const [inputText, setInputText] = useState('');
+  const [isVoiceRecording, setIsVoiceRecording] = useState(false);
+  const [voiceTranscript, setVoiceTranscript] = useState(null);
+  const [isAgentRunning, setIsAgentRunning] = useState(false);
+  const [agentPipelineSteps, setAgentPipelineSteps] = useState(null);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -30,8 +34,47 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
     }
   };
 
-  const applyAiDraft = () => {
-    setInputText(ticket.suggestedDraft || '');
+  // Simulates Multi-Agent Pipeline Execution with real-time steps & telemetry
+  const triggerMultiAgentPipeline = () => {
+    setIsAgentRunning(true);
+    setAgentPipelineSteps([]);
+
+    const steps = [
+      { agent: "1. 🛡️ PII Masking Agent", result: "Aadhaar, PAN & Mobile masked for NIC Cloud compliance", time: "14ms" },
+      { agent: "2. 🌐 Bhashini Voice & Indic Agent", result: "Language detected & translated (Indic -> Standard English)", time: "62ms" },
+      { agent: "3. 🎯 Triage & Intent Classifier", result: `Department: ${ticket.desk} | HS Code: ${ticket.hsCode}`, time: "85ms" },
+      { agent: "4. 🔗 ICEGATE & DGFT Verifier", result: "Shipping Bill & IEC verified via Customs EDI Gateway", time: "140ms" },
+      { agent: "5. 📜 Gazette RAG Retriever", result: "Vector Match on FTP 2023 Gazette Notification (96% score)", time: "220ms" },
+      { agent: "6. ✍️ Legal Drafter Agent", result: "Formal Government Resolution Order synthesized", time: "310ms" }
+    ];
+
+    steps.forEach((step, idx) => {
+      setTimeout(() => {
+        setAgentPipelineSteps((prev) => [...(prev || []), step]);
+        if (idx === steps.length - 1) {
+          setIsAgentRunning(false);
+          setInputText(ticket.suggestedDraft || '');
+        }
+      }, (idx + 1) * 350);
+    });
+  };
+
+  // Simulates Bhashini Speech-to-Text Voice Recording
+  const toggleVoiceRecording = () => {
+    if (isVoiceRecording) {
+      setIsVoiceRecording(false);
+    } else {
+      setIsVoiceRecording(true);
+      setTimeout(() => {
+        setIsVoiceRecording(false);
+        setVoiceTranscript({
+          sourceAudio: "Voice Note Recorded (Hindi Dialect)",
+          indicText: "सर, हमारा एक्सपोर्ट रोड़टेप सब्सिडी क्यों रुका है? कृपया मदद करें।",
+          translatedText: "Sir, why is our RoDTEP export subsidy on hold? Kindly assist us."
+        });
+        setInputText(ticket.suggestedDraft || '');
+      }, 2500);
+    }
   };
 
   const insertCanned = () => {
@@ -56,6 +99,10 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
               <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-semibold">
                 {ticket.desk}
               </span>
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded font-medium flex items-center space-x-1">
+                <Shield className="w-3 h-3 text-emerald-400" />
+                <span>PII Protected (NIC)</span>
+              </span>
             </div>
             <p className="text-[11px] text-slate-400 mt-0.5">
               <span className="font-mono text-slate-500">Subject: </span>
@@ -79,10 +126,55 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
         </div>
       </div>
 
+      {/* Voice Assistant Simulation Banner */}
+      {voiceTranscript && (
+        <div className="bg-gradient-to-r from-orange-950/60 to-slate-900 border-b border-orange-800/50 px-5 py-2.5 flex items-center justify-between text-xs animate-fadeIn">
+          <div className="flex items-center space-x-2">
+            <Mic className="w-4 h-4 text-orange-400 animate-pulse" />
+            <span className="font-bold text-orange-300">Bhashini Voice Note Transcribed:</span>
+            <span className="text-slate-300 italic">"{voiceTranscript.indicText}"</span>
+            <span className="text-slate-500">→</span>
+            <span className="text-emerald-300 font-medium">"{voiceTranscript.translatedText}"</span>
+          </div>
+          <button
+            onClick={() => setVoiceTranscript(null)}
+            className="text-[11px] text-slate-400 hover:text-white"
+          >
+            ✕ Dismiss
+          </button>
+        </div>
+      )}
+
+      {/* Live Multi-Agent Execution Telemetry Drawer */}
+      {agentPipelineSteps && agentPipelineSteps.length > 0 && (
+        <div className="bg-slate-950/90 border-b border-indigo-900/60 p-3.5 space-y-2 text-xs">
+          <div className="flex items-center justify-between">
+            <span className="font-bold text-indigo-300 flex items-center space-x-2">
+              <Activity className="w-4 h-4 text-indigo-400 animate-spin" />
+              <span>Multi-Agent Orchestration Pipeline (6 Autonomous Agents)</span>
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">
+              {isAgentRunning ? "Executing Agent Pipeline..." : "Pipeline Complete • Draft Loaded"}
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 pt-1">
+            {agentPipelineSteps.map((step, idx) => (
+              <div key={idx} className="bg-slate-900/80 border border-slate-800 rounded-lg p-2 text-[11px]">
+                <div className="flex justify-between items-center text-slate-300 font-semibold mb-0.5">
+                  <span>{step.agent}</span>
+                  <span className="font-mono text-emerald-400 text-[10px]">{step.time}</span>
+                </div>
+                <p className="text-slate-400 text-[10px] leading-tight truncate">{step.result}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Case Proceedings Timeline & Legal Submissions Stream */}
       <div className="flex-1 overflow-y-auto p-5 space-y-4">
         {ticket.messages.map((m) => {
-          // Automated AI Triage Event
           if (m.type === 'system') {
             return (
               <div key={m.id || Math.random()} className="flex justify-center my-3">
@@ -94,7 +186,6 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
             );
           }
 
-          // Citizen / Trader Formal Submission (Memorandum Style)
           if (m.type === 'user') {
             return (
               <div key={m.id || Math.random()} className="bg-[#0f172a] border border-slate-700/80 rounded-2xl p-4 max-w-3xl shadow-md">
@@ -109,8 +200,9 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
                   </div>
                   <div className="flex items-center space-x-2 text-[11px] text-slate-400 font-mono">
                     <span>{m.time}</span>
-                    <span className="bg-blue-900/30 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-700/40">
-                      Channel: {ticket.channel}
+                    <span className="bg-blue-900/30 text-blue-300 text-[10px] px-2 py-0.5 rounded border border-blue-700/40 flex items-center space-x-1">
+                      {ticket.channel.includes("WhatsApp") ? <Smartphone className="w-3 h-3 text-emerald-400" /> : <Globe className="w-3 h-3 text-blue-400" />}
+                      <span>{ticket.channel}</span>
                     </span>
                   </div>
                 </div>
@@ -121,7 +213,6 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
             );
           }
 
-          // Officer Official Response (Letterhead Style)
           if (m.type === 'agent') {
             return (
               <div key={m.id || Math.random()} className="bg-blue-950/40 border border-blue-500/40 rounded-2xl p-4 max-w-3xl ml-auto shadow-lg">
@@ -148,7 +239,6 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
             );
           }
 
-          // Confidential Internal Green Sheet Note (Indian e-Office Style)
           if (m.type === 'note') {
             return (
               <div key={m.id || Math.random()} className="bg-emerald-950/30 border-2 border-dashed border-emerald-600/40 rounded-xl p-3.5 max-w-2xl mx-auto shadow">
@@ -169,7 +259,7 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
         <div ref={messagesEndRef} />
       </div>
 
-      {/* AI Legal Recommendation Bar */}
+      {/* AI Legal Recommendation & Multi-Agent Bar */}
       <div className="bg-gradient-to-r from-blue-950/80 via-slate-900 to-indigo-950/80 border-t border-blue-900/60 px-5 py-2.5 flex items-center justify-between">
         <div className="flex items-center space-x-2 text-xs">
           <Scale className="w-4 h-4 text-amber-400 shrink-0" />
@@ -178,13 +268,28 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
             {ticket.clauses?.[0]?.title || "Relevant Trade Gazette Clause Indexed"}
           </span>
         </div>
-        <button
-          onClick={applyAiDraft}
-          className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg font-bold flex items-center space-x-1.5 shadow transition"
-        >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Synthesize Gazette Order</span>
-        </button>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={toggleVoiceRecording}
+            className={`text-xs px-3 py-1.5 rounded-lg font-bold flex items-center space-x-1.5 transition ${
+              isVoiceRecording
+                ? 'bg-rose-600 text-white animate-pulse'
+                : 'bg-orange-600/30 text-orange-300 border border-orange-500/40 hover:bg-orange-600/50'
+            }`}
+          >
+            <Mic className="w-3.5 h-3.5" />
+            <span>{isVoiceRecording ? "Listening Bhashini..." : "🎙️ Bhashini Voice"}</span>
+          </button>
+
+          <button
+            onClick={triggerMultiAgentPipeline}
+            disabled={isAgentRunning}
+            className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold flex items-center space-x-1.5 shadow transition disabled:opacity-50"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Run Multi-Agent Pipeline</span>
+          </button>
+        </div>
       </div>
 
       {/* Official Response Composer */}
@@ -244,18 +349,17 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
         <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-800">
           <div className="flex items-center space-x-2">
             <button
-              onClick={applyAiDraft}
+              onClick={() => setInputText(ticket.suggestedDraft || '')}
               className="text-xs bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/50 px-3 py-1.5 rounded-lg flex items-center space-x-1.5 transition font-semibold"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Auto-Fill Legal Draft</span>
+              <span>Quick Auto-Fill Draft</span>
             </button>
 
             <button
               onClick={insertCanned}
               className="text-xs bg-slate-800 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg flex items-center space-x-1.5 transition font-medium"
             >
-              <Stamp className="w-3.5 h-3.5" />
               <span>Official Format Template</span>
             </button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Building2, Clock, AlertTriangle, FileText, CheckCircle2, ShieldCheck, Scale } from 'lucide-react';
+import { BookOpen, Building2, Clock, AlertTriangle, FileText, CheckCircle2, ShieldCheck, Scale, Link2, Hash } from 'lucide-react';
 
 export default function RightPanel({ ticket, onInsertClause, onProposeFaq }) {
   const [activeTab, setActiveTab] = useState('copilot');
@@ -32,7 +32,7 @@ export default function RightPanel({ ticket, onInsertClause, onProposeFaq }) {
           }`}
         >
           <ShieldCheck className="w-3.5 h-3.5" />
-          <span>IEC Verification</span>
+          <span>ICEGATE / GSTN</span>
         </button>
 
         <button
@@ -44,7 +44,7 @@ export default function RightPanel({ ticket, onInsertClause, onProposeFaq }) {
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
-          <span>Charter SLA</span>
+          <span>Charter & Audit</span>
         </button>
       </div>
 
@@ -142,13 +142,47 @@ export default function RightPanel({ ticket, onInsertClause, onProposeFaq }) {
         </div>
       )}
 
-      {/* Tab 2: ICEGATE & Enterprise Profile */}
+      {/* Tab 2: ICEGATE & Enterprise Interoperability Vault */}
       {activeTab === 'profile' && (
         <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+          
+          {/* Government Portal Interoperability Sync Card */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2.5">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span className="text-[11px] font-bold text-slate-300 flex items-center space-x-1.5">
+                <Link2 className="w-3.5 h-3.5 text-blue-400" />
+                <span>Govt Portal Interoperability Hub</span>
+              </span>
+              <span className="text-[10px] text-emerald-400 font-mono font-bold">Live Synced</span>
+            </div>
+            
+            <div className="space-y-1.5 text-[11px]">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">ICEGATE Customs EDI:</span>
+                <span className="text-emerald-400 font-semibold flex items-center space-x-1">
+                  <CheckCircle2 className="w-3 h-3 inline" />
+                  <span>Port Kolkata (INCCU1)</span>
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">DGFT IEC Status:</span>
+                <span className="text-emerald-400 font-semibold">Active & KYC Compliant</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">GSTN Status:</span>
+                <span className="text-emerald-400 font-semibold">Active (GSTR-1 Filed)</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-slate-400">MSME Samadhaan:</span>
+                <span className="text-blue-300 font-semibold">Eligible (Udyam Verified)</span>
+              </div>
+            </div>
+          </div>
+
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold">
-                ✓ ICEGATE Verified
+                ✓ Verified Exporter
               </span>
               <span className="text-[10px] text-slate-400 font-mono">MCA Registered</span>
             </div>
@@ -179,25 +213,14 @@ export default function RightPanel({ ticket, onInsertClause, onProposeFaq }) {
               </div>
             </div>
           </div>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2">
-            <h4 className="font-bold text-slate-300 text-xs uppercase tracking-wider">
-              Previous Ministry Dossiers
-            </h4>
-            <div className="p-2.5 bg-slate-800/60 rounded-lg border border-slate-700/50">
-              <div className="flex justify-between font-bold text-[11px]">
-                <span className="text-slate-200">APEDA Phytosanitary Clearance</span>
-                <span className="text-emerald-400">Disposed</span>
-              </div>
-              <p className="text-slate-400 text-[10px] mt-1 font-mono">Dossier #DG-8921 • Disposed: 14 May 2026</p>
-            </div>
-          </div>
         </div>
       )}
 
-      {/* Tab 3: Citizen Charter SLA Audit */}
+      {/* Tab 3: Citizen Charter & Immutable Audit Ledger */}
       {activeTab === 'sla' && (
         <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+          
+          {/* Statutory SLA Timer */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-slate-400 uppercase text-[10px] tracking-wider font-bold">
@@ -218,27 +241,41 @@ export default function RightPanel({ ticket, onInsertClause, onProposeFaq }) {
                 <span>Max Ceiling: 48h</span>
               </div>
             </div>
+            <p className="text-[10px] text-slate-400 italic">
+              *If unresolved in 48h, auto-escalation to Joint Secretary (L3) is triggered automatically.
+            </p>
           </div>
 
+          {/* Immutable RTI & Audit Trail */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2.5">
-            <h4 className="font-bold text-slate-300 text-xs">
-              Immutable e-Office Audit Trail
-            </h4>
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <h4 className="font-bold text-slate-200 text-xs flex items-center space-x-1.5">
+                <Hash className="w-3.5 h-3.5 text-amber-400" />
+                <span>RTI & Audit Hash Trail</span>
+              </h4>
+              <span className="font-mono text-[9px] text-slate-500">SHA-256 Verified</span>
+            </div>
+            
             <ul className="text-[11px] text-slate-400 space-y-2.5 border-l-2 border-slate-800 pl-3">
               <li>
                 <p className="text-slate-200 font-semibold">Grievance Registered via National Portal</p>
-                <p className="text-[10px] text-slate-500 font-mono">10:15:22 IST</p>
+                <p className="text-[10px] text-slate-500 font-mono">10:15:22 IST • IP: 103.21.***</p>
               </li>
               <li>
-                <p className="text-blue-300 font-semibold">AI Triage: Vector Match Complete (2 sec)</p>
-                <p className="text-[10px] text-slate-500 font-mono">10:15:24 IST</p>
+                <p className="text-blue-300 font-semibold">AI Triage: Vector Match (96% Precedent)</p>
+                <p className="text-[10px] text-slate-500 font-mono">10:15:24 IST • Latency: 310ms</p>
               </li>
               <li>
-                <p className="text-slate-200 font-semibold">Allocated to Officer R. Sharma (DGFT Desk)</p>
-                <p className="text-[10px] text-slate-500 font-mono">10:15:25 IST</p>
+                <p className="text-slate-200 font-semibold">Allocated to Officer Rajesh Sharma</p>
+                <p className="text-[10px] text-slate-500 font-mono">10:15:25 IST • Token ID: GOI-7721</p>
               </li>
             </ul>
+
+            <div className="bg-slate-950 p-2 rounded text-[10px] font-mono text-slate-400 break-all border border-slate-800">
+              Hash: 9f83a12c8b74e6d30f5a9b1c7e4d8a2f3b6c9e1
+            </div>
           </div>
+
         </div>
       )}
 
