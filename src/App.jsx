@@ -5,10 +5,12 @@ import ChatWorkspace from './components/ChatWorkspace';
 import RightPanel from './components/RightPanel';
 import KnowledgeBaseView from './components/KnowledgeBaseView';
 import AnalyticsView from './components/AnalyticsView';
+import UserQueryPortal from './components/UserQueryPortal';
 import { initialTickets } from './data/mockTickets';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('inbox');
+  // Default to 'portal' so the user sees the clean, self-explanatory Query & Agent Handoff view first!
+  const [currentView, setCurrentView] = useState('portal');
   const [activeDesk, setActiveDesk] = useState('all');
   const [tickets, setTickets] = useState(initialTickets);
   const [selectedTicketId, setSelectedTicketId] = useState(initialTickets[0].id);
@@ -68,9 +70,6 @@ export default function App() {
 
   // 🔀 Inter-Agent / Cross-Department Dossier Transfer Handler
   const handleTransferTicket = (ticketId, targetDeptCode, targetDeskName, reason) => {
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
     setTickets((prev) =>
       prev.map((t) => {
         if (t.id !== ticketId) return t;
@@ -90,7 +89,7 @@ export default function App() {
       })
     );
 
-    alert(`✅ Case Docket #${ticketId} successfully transferred to ${targetDeskName}!\n\nReason: "${reason}"\n\nThe receiving officer has received the file with full context. Exporter notified via SMS/Portal.`);
+    alert(`✅ Case Docket #${ticketId} successfully transferred to ${targetDeskName}!\n\nReason: "${reason}"\n\nThe receiving officer has received the file with full context.`);
   };
 
   const handleInsertClause = (clauseText) => {
@@ -98,7 +97,7 @@ export default function App() {
   };
 
   const handleProposeFaq = () => {
-    alert("✨ Proactive Regulatory Intelligence Triggered!\n\nA new draft Trade Policy Circular has been generated and queued for Joint Secretary review:\n\nTitle: 'Clarification on Bank PFMS Validation for RoSCTL e-Scrip Clearance'\nPolicy Chapter: FTP 2023 > Chapter 4 Remissions");
+    alert("✨ Proactive Regulatory Intelligence Triggered!\n\nA new draft Trade Policy Circular has been generated and queued for Joint Secretary review.");
   };
 
   return (
@@ -111,6 +110,12 @@ export default function App() {
         setIsRightPanelOpen={setIsRightPanelOpen}
       />
 
+      {/* VIEW 1: Clean, Spacious Exporter Query & Agent Handoff Portal */}
+      {currentView === 'portal' && (
+        <UserQueryPortal onTransferToOfficer={() => setCurrentView('inbox')} />
+      )}
+
+      {/* VIEW 2: Ministry Officer Desk (Case Files) */}
       {currentView === 'inbox' && (
         <div className="flex-1 flex overflow-hidden">
           <ConversationList
@@ -140,8 +145,10 @@ export default function App() {
         </div>
       )}
 
+      {/* VIEW 3: Gazette Knowledge Base */}
       {currentView === 'kb' && <KnowledgeBaseView />}
 
+      {/* VIEW 4: Policy Blindspot Radar */}
       {currentView === 'analytics' && <AnalyticsView />}
     </div>
   );
