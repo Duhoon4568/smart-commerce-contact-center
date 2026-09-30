@@ -1,4 +1,4 @@
-# SAMVAAD 2.0: Automated Knowledge Management & Smart Contact Center
+# Automated Knowledge Management (AKM) Platform
 ### Smart India Hackathon (SIH) — Ministry of Commerce & Industry
 
 An enterprise-grade, omnichannel contact center and automated knowledge management system for the **Ministry of Commerce & Industry (GoI)**, inspired by the production architecture of **[Chatwoot](https://github.com/chatwoot/chatwoot)** and supercharged with **AI Knowledge RAG (Retrieval-Augmented Generation)**.
@@ -72,12 +72,12 @@ npm run build
 
 ## 📤 How to Push to GitHub
 
-1. Create a new repository on your GitHub account (e.g. `samvaad-commerce-contact-center`).
+1. Create a new repository on your GitHub account (e.g. `automated-knowledge-management`).
 2. Run the following commands in this project folder:
 
 ```bash
 git add .
-git commit -m "feat: initial commit of SAMVAAD 2.0 React contact center platform"
+git commit -m "feat: initial commit of Automated Knowledge Management platform"
 git branch -M main
 git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO_NAME>.git
 git push -u origin main
