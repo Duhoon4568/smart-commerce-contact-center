@@ -70,7 +70,7 @@ export default function KnowledgeBaseView() {
               </span>
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Chatwoot-style Help Center synced with Foreign Trade Policy (FTP), DPIIT Circulars, and GeM Guidelines
+              Unified Ministry Knowledge Repository synced with Foreign Trade Policy (FTP), DPIIT Circulars, and GeM Guidelines
             </p>
           </div>
           <button

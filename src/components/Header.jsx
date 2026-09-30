@@ -14,7 +14,7 @@ export default function Header({ currentView, setCurrentView, ticketsCount }) {
             <span className="font-extrabold text-sm tracking-wide text-white uppercase">AKM</span>
             <span className="text-xs text-slate-300 font-semibold hidden sm:inline">• Automated Knowledge Management</span>
             <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-medium">AI Smart Desk</span>
-            <span className="text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded font-mono">Chatwoot-AI</span>
+            <span className="text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded font-mono">RAG-Engine v2.4</span>
           </div>
           <p className="text-[11px] text-slate-400 leading-none">Automated Knowledge & Contact Center Platform • Ministry of Commerce & Industry</p>
         </div>

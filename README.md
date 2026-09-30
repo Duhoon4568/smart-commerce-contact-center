@@ -1,13 +1,13 @@
 # Automated Knowledge Management (AKM) Platform
 ### Smart India Hackathon (SIH) — Ministry of Commerce & Industry
 
-An enterprise-grade, omnichannel contact center and automated knowledge management system for the **Ministry of Commerce & Industry (GoI)**, inspired by the production architecture of **[Chatwoot](https://github.com/chatwoot/chatwoot)** and supercharged with **AI Knowledge RAG (Retrieval-Augmented Generation)**.
+An enterprise-grade, omnichannel contact center and automated knowledge management system for the **Ministry of Commerce & Industry (GoI)**, engineered with an intelligent omnichannel architecture and supercharged with **AI Knowledge RAG (Retrieval-Augmented Generation)**.
 
 Built with **React 18 + Vite + Tailwind CSS + Lucide Icons**.
 
 ---
 
-## 🌟 Key Features Adapted from Chatwoot
+## 🌟 Key Platform Capabilities
 
 | Feature | Description |
 | :--- | :--- |
@@ -40,7 +40,7 @@ commerce-contact-center/
     │   └── mockTickets.js       # Real-world Ministry tickets & gazette clauses
     └── components/
         ├── Header.jsx           # Top navigation & system status
-        ├── Sidebar.jsx          # Chatwoot narrow icon rail (Desks & Inboxes)
+        ├── Sidebar.jsx          # Department navigation rail (Desks & Inboxes)
         ├── ConversationList.jsx # Ticket feed, filtering & search
         ├── ChatWorkspace.jsx    # Active conversation thread & composer
         ├── RightPanel.jsx       # AI Copilot RAG, Enterprise Profile, SLA
