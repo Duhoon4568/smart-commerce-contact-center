@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Contact Center | Ministry of Commerce & Industry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="bg-[#0b1120] text-slate-100 h-screen flex flex-col overflow-hidden select-none">
+
+  <!-- Top Global Ministry Header -->
+  <header class="bg-[#0f172a] border-b border-slate-800 px-4 py-2.5 flex items-center justify-between z-20 shrink-0">
+    <div class="flex items-center space-x-3">
+      <!-- Govt Ashoka Pillar Symbol Mockup -->
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center font-bold text-white shadow-md shadow-amber-900/30 text-lg border border-amber-400/40">
+        🏛️
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-extrabold text-sm tracking-wide text-white uppercase">SAMVAAD 2.0</span>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-medium">AI Smart Desk</span>
+          <span class="text-[10px] bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded font-mono">v4.2-gov</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-none">Automated Knowledge & Contact Center Platform • Ministry of Commerce & Industry</p>
+      </div>
+    </div>
+
+    <!-- Center Search & View Switcher -->
+    <div class="flex items-center space-x-2">
+      <div class="flex bg-slate-900 border border-slate-700/80 rounded-lg p-1 text-xs font-medium">
+        <button id="nav-inbox" onclick="switchMainView('inbox')" class="px-3 py-1 rounded-md bg-blue-600 text-white shadow flex items-center space-x-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+          <span>Omnichannel Inbox</span>
+          <span class="bg-blue-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">4</span>
+        </button>
+        <button id="nav-kb" onclick="switchMainView('kb')" class="px-3 py-1 rounded-md text-slate-400 hover:text-white flex items-center space-x-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Gazette & Policy KB</span>
+        </button>
+        <button id="nav-analytics" onclick="switchMainView('analytics')" class="px-3 py-1 rounded-md text-slate-400 hover:text-white flex items-center space-x-1.5 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>SLA & Query Trends</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Profile & AI Engine Status -->
+    <div class="flex items-center space-x-3">
+      <div class="hidden md:flex items-center space-x-1.5 bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1 text-xs">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-slate-300 text-[11px]">RAG Vector Store: <span class="text-emerald-400 font-mono">Synced (4,210 Gazettes)</span></span>
+      </div>
+      <div class="flex items-center space-x-2 pl-2 border-l border-slate-800">
+        <div class="w-8 h-8 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center font-bold text-xs text-white">
+          RS
+        </div>
+        <div class="text-left hidden lg:block">
+          <div class="text-xs font-semibold text-white leading-none">Rajesh Sharma</div>
+          <div class="text-[10px] text-slate-400">DGFT L2 Grievance Officer</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= VIEW 1: CONTACT CENTER INBOX (CHATWOOT ARCHITECTURE) ================= -->
+  <div id="view-inbox" class="flex-1 flex overflow-hidden">
+
+    <!-- 1. LEFT NARROW ICON RAIL (CHATWOOT STYLE) -->
+    <div class="w-14 bg-[#090d16] border-r border-slate-800 flex flex-col items-center py-3 space-y-4 shrink-0">
+      <button title="All Inboxes" class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-500 transition relative">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-slate-900"></span>
+      </button>
+
+      <button title="DGFT Desk (Directorate General of Foreign Trade)" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center hover:bg-slate-700 transition">
+        <span class="text-xs font-bold text-amber-400">DG</span>
+      </button>
+
+      <button title="DPIIT Desk (Startups & Industry)" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center hover:bg-slate-700 transition">
+        <span class="text-xs font-bold text-blue-400">DP</span>
+      </button>
+
+      <button title="GeM Procurement Escalations" class="w-9 h-9 rounded-lg bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center hover:bg-slate-700 transition">
+        <span class="text-xs font-bold text-emerald-400">GM</span>
+      </button>
+
+      <div class="w-8 border-b border-slate-800 my-1"></div>
+
+      <button title="Canned Responses & Standard Circulars" class="w-9 h-9 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </button>
+
+      <button title="Automated Routing Rules" class="w-9 h-9 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </button>
+
+      <div class="flex-1"></div>
+
+      <!-- Live Bhashini Translation Toggle -->
+      <button title="Bhashini Indic Translation Engine Enabled" class="w-9 h-9 rounded-lg bg-orange-600/20 text-orange-400 border border-orange-500/30 flex items-center justify-center font-bold text-xs">
+        भा
+      </button>
+    </div>
+
+    <!-- 2. CONVERSATION / TICKET LIST COLUMN (CHATWOOT LIST) -->
+    <div class="w-80 lg:w-96 bg-[#0f172a] border-r border-slate-800 flex flex-col shrink-0">
+      
+      <!-- List Controls & Filter -->
+      <div class="p-3 border-b border-slate-800 space-y-2">
+        <div class="flex items-center justify-between">
+          <h2 class="font-bold text-sm text-white flex items-center space-x-2">
+            <span>Conversations</span>
+            <span class="bg-slate-800 text-slate-300 text-xs px-2 py-0.5 rounded-full font-mono">4 Active</span>
+          </h2>
+          <div class="flex space-x-1">
+            <button class="text-slate-400 hover:text-white p-1 hover:bg-slate-800 rounded">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Sub-tabs -->
+        <div class="grid grid-cols-3 gap-1 bg-slate-900 p-1 rounded-lg text-xs text-center font-medium">
+          <button class="py-1 rounded bg-blue-600 text-white shadow">All (4)</button>
+          <button class="py-1 rounded text-slate-400 hover:text-white">Unassigned (2)</button>
+          <button class="py-1 rounded text-slate-400 hover:text-white">Escalated (1)</button>
+        </div>
+
+        <!-- Search input -->
+        <div class="relative">
+          <input type="text" placeholder="Search by IEC, GSTIN or query..." class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:border-blue-500 placeholder-slate-500">
+          <svg class="w-4 h-4 text-slate-500 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+      <!-- Ticket Items List -->
+      <div id="tickets-container" class="flex-1 overflow-y-auto divide-y divide-slate-800/80">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- 3. MAIN CONVERSATION / ACTIVE TICKET COLUMN -->
+    <div class="flex-1 flex flex-col bg-[#0b1120] overflow-hidden">
+      
+      <!-- Conversation Header -->
+      <div id="conversation-header" class="h-14 px-4 bg-[#0f172a] border-b border-slate-800 flex items-center justify-between shrink-0">
+        <!-- Header info populated via JS -->
+      </div>
+
+      <!-- Chat Messages Scroll Area -->
+      <div id="messages-container" class="flex-1 overflow-y-auto p-4 space-y-4">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- AI Assistant Suggested Quick Bar -->
+      <div class="bg-gradient-to-r from-blue-950/60 to-indigo-950/60 border-t border-blue-900/40 px-4 py-2 flex items-center justify-between">
+        <div class="flex items-center space-x-2 text-xs">
+          <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+          <span class="font-semibold text-blue-300">AI Knowledge Suggestion Available:</span>
+          <span id="ai-suggestion-hint" class="text-slate-300 truncate max-w-md">Foreign Trade Policy 2023 - Clause 4.14 (RoDTEP)</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="applyAiSuggestion()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded font-medium flex items-center space-x-1 shadow transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Insert AI Draft</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reply Composer (Chatwoot Multi-mode) -->
+      <div class="p-3 bg-[#0f172a] border-t border-slate-800 shrink-0">
+        
+        <!-- Mode Switch: Public Reply vs Private Note -->
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-2">
+            <button id="mode-reply-btn" onclick="setComposerMode('reply')" class="px-2.5 py-1 rounded text-xs font-semibold bg-blue-600 text-white flex items-center space-x-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+              <span>Public Official Reply</span>
+            </button>
+            <button id="mode-note-btn" onclick="setComposerMode('note')" class="px-2.5 py-1 rounded text-xs font-medium text-slate-400 hover:text-white bg-slate-800 flex items-center space-x-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <span>Internal Ministry Note (L2/L3)</span>
+            </button>
+          </div>
+
+          <!-- Shortcuts -->
+          <div class="flex items-center space-x-2 text-[11px] text-slate-400">
+            <span class="mono bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">/canned</span>
+            <span class="mono bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">Ctrl+Enter to send</span>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="relative">
+          <textarea id="reply-input" rows="3" placeholder="Type your official response to the trader or use '/' for canned templates..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none font-normal"></textarea>
+        </div>
+
+        <!-- Bottom Composer Actions -->
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-800">
+          <div class="flex items-center space-x-2">
+            <button onclick="triggerAiCoPilotDraft()" class="text-xs bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/50 px-2.5 py-1 rounded flex items-center space-x-1.5 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              <span>Auto-Synthesize Answer</span>
+            </button>
+            
+            <button onclick="insertCannedTemplate()" class="text-xs bg-slate-800 text-slate-300 hover:text-white px-2 py-1 rounded flex items-center space-x-1 transition">
+              <span>📋 Canned Template</span>
+            </button>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <button onclick="resolveCurrentTicket()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded font-medium border border-slate-700 transition">
+              ✓ Resolve
+            </button>
+            <button onclick="sendReplyMessage()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs rounded font-semibold shadow-md flex items-center space-x-1 transition">
+              <span>Send</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 4. RIGHT CONTEXT & AI KNOWLEDGE COPILOT COLUMN -->
+    <div class="w-80 lg:w-96 bg-[#0f172a] border-l border-slate-800 flex flex-col shrink-0">
+      
+      <!-- Right Header Tabs -->
+      <div class="flex border-b border-slate-800 text-xs font-semibold">
+        <button id="tab-copilot" onclick="switchRightTab('copilot')" class="flex-1 py-3 text-center border-b-2 border-blue-500 text-blue-400 bg-slate-800/40">
+          🤖 AI Knowledge RAG
+        </button>
+        <button id="tab-profile" onclick="switchRightTab('profile')" class="flex-1 py-3 text-center text-slate-400 hover:text-slate-200">
+          🏢 Trader / IEC Profile
+        </button>
+        <button id="tab-sla" onclick="switchRightTab('sla')" class="flex-1 py-3 text-center text-slate-400 hover:text-slate-200">
+          ⏱️ SLA & Audit
+        </button>
+      </div>
+
+      <!-- Right Tab 1: AI Knowledge Copilot Panel -->
+      <div id="panel-copilot" class="flex-1 overflow-y-auto p-4 space-y-4">
+        
+        <!-- Query Analysis Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">AI Classification</span>
+            <span id="ai-confidence" class="text-[11px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-mono">96% Confidence</span>
+          </div>
+          <div class="space-y-1.5 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Department:</span>
+              <span id="ai-dept" class="font-medium text-amber-400">DGFT (Export Wing)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Policy Category:</span>
+              <span id="ai-category" class="font-medium text-slate-200">Duty Remission (RoDTEP)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">HS Code:</span>
+              <span id="ai-hscode" class="font-mono text-slate-300">0902.40.10 (Black Tea)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Sentiment:</span>
+              <span id="ai-sentiment" class="text-rose-400 font-medium">Frustrated / High Urgency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Retrieved Official Gazette Clauses (RAG) -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+              <span>📜 Cited Ministry Notifications</span>
+            </h3>
+            <span class="text-[10px] text-blue-400 font-mono">2 Retrieved</span>
+          </div>
+
+          <div id="retrieved-clauses" class="space-y-2.5">
+            <!-- Dynamic clauses populated via JS -->
+          </div>
+        </div>
+
+        <!-- Knowledge Gap & Trend Alert -->
+        <div class="bg-amber-950/30 border border-amber-800/40 rounded-lg p-3 text-xs space-y-1.5">
+          <div class="flex items-center space-x-1.5 text-amber-400 font-semibold">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Knowledge Gap Detected</span>
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Over <span class="font-bold text-amber-300">38 exporters</span> asked about this same export credit rule in the past 7 days.
+          </p>
+          <button onclick="proposeNewFaq()" class="w-full mt-1 bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 py-1.5 rounded text-[11px] font-semibold transition text-center">
+            + Auto-Draft Public Portal FAQ
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Right Tab 2: Trader Profile -->
+      <div id="panel-profile" class="hidden flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-2">
+          <h4 class="font-bold text-white text-sm" id="profile-name">Rajesh Agro Exports Ltd</h4>
+          <p class="text-[11px] text-slate-400" id="profile-sector">Agri-Commodities & Spice Processing</p>
+          <div class="pt-2 border-t border-slate-800 space-y-1.5">
+            <div class="flex justify-between">
+              <span class="text-slate-400">IEC Number:</span>
+              <span id="profile-iec" class="font-mono text-blue-400">0508012345</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">GSTIN:</span>
+              <span id="profile-gstin" class="font-mono text-slate-300">07AAACR1234F1Z8</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Enterprise Scale:</span>
+              <span id="profile-scale" class="text-emerald-400 font-medium">Medium Enterprise (MSME)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Export Turnover:</span>
+              <span id="profile-turnover" class="font-mono text-slate-300">₹42.8 Cr / Year</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Registered City:</span>
+              <span id="profile-city" class="text-slate-300">Kolkata, West Bengal</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-2">
+          <h4 class="font-semibold text-slate-300 text-xs uppercase tracking-wider">Past Grievances History</h4>
+          <div class="text-[11px] space-y-2">
+            <div class="p-2 bg-slate-800/60 rounded border border-slate-700/50">
+              <div class="flex justify-between font-medium">
+                <span class="text-slate-200">APEDA Phytosanitary Cert</span>
+                <span class="text-emerald-400">Resolved</span>
+              </div>
+              <p class="text-slate-400 text-[10px] mt-0.5">Ticket #DG-8921 • Closed 14 May 2026</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Tab 3: SLA & Audit -->
+      <div id="panel-sla" class="hidden flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400 uppercase text-[10px] tracking-wider font-semibold">Citizen Charter SLA</span>
+            <span class="text-emerald-400 font-mono text-xs">On Track</span>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300 font-medium">Time Remaining:</span>
+              <span class="text-amber-400 font-bold font-mono">3h 42m</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full" style="width: 45%;"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+              <span>Opened: Today 10:15 AM</span>
+              <span>Max Limit: 48h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-2">
+          <h4 class="font-semibold text-slate-300 text-xs">Immutable Audit Log (Ministry Compliance)</h4>
+          <ul class="text-[11px] text-slate-400 space-y-2 border-l-2 border-slate-800 pl-3">
+            <li>
+              <p class="text-slate-300 font-medium">Ticket Created via DGFT Portal</p>
+              <p class="text-[10px] text-slate-500">10:15:22 IST</p>
+            </li>
+            <li>
+              <p class="text-blue-300 font-medium">AI Triage: Intent Classified</p>
+              <p class="text-[10px] text-slate-500">10:15:24 IST (2 sec)</p>
+            </li>
+            <li>
+              <p class="text-slate-300 font-medium">Assigned to Officer R. Sharma</p>
+              <p class="text-[10px] text-slate-500">10:15:25 IST</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================= VIEW 2: GAZETTE & KNOWLEDGE BASE REPOSITORY ================= -->
+  <div id="view-kb" class="hidden flex-1 overflow-y-auto p-6 bg-[#0b1120]">
+    <div class="max-w-6xl mx-auto space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <h1 class="text-xl font-bold text-white flex items-center space-x-2">
+            <span>Ministry Knowledge Base & Gazette Ingestion Engine</span>
+            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">Vector Embeddings</span>
+          </h1>
+          <p class="text-xs text-slate-400 mt-1">Chatwoot-style Help Center synced with Foreign Trade Policy (FTP), DPIIT Circulars, and GeM Guidelines</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="alert('Upload Modal: Ingest PDF Circular into Vector DB')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-2 rounded-lg font-semibold flex items-center space-x-1.5 shadow">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+            <span>+ Ingest New Gazette Circular (PDF)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Filters -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <input type="text" placeholder="Search gazettes, circular numbers, clauses..." class="md:col-span-2 bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-white">
+        <select class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-300">
+          <option>All Desks (DGFT, DPIIT, GeM, IPR)</option>
+          <option>DGFT (Foreign Trade)</option>
+          <option>DPIIT (Startup India)</option>
+          <option>GeM (Public Procurement)</option>
+        </select>
+        <button class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg py-2">
+          Filter Documents
+        </button>
+      </div>
+
+      <!-- Gazette Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3 hover:border-slate-700 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-mono font-medium">DGFT / FTP-2023</span>
+            <span class="text-[10px] text-slate-400">Updated: Apr 2026</span>
+          </div>
+          <h3 class="text-sm font-bold text-white">Foreign Trade Policy (FTP) 2023 - Duty Remission & EPCG</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Comprehensive handbook on Advance Authorization, RoDTEP, RoSCTL, and capital goods export obligation schemes.</p>
+          <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[11px]">
+            <span class="text-emerald-400 font-mono">1,480 Chunks Embedded</span>
+            <span class="text-blue-400 hover:underline cursor-pointer">View Articles →</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3 hover:border-slate-700 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-mono font-medium">DPIIT / STARTUP-INDIA</span>
+            <span class="text-[10px] text-slate-400">Updated: Feb 2026</span>
+          </div>
+          <h3 class="text-sm font-bold text-white">Startup India Seed Fund & Section 80-IAC Exemption</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Guidelines on recognition of startups, income tax holidays, angel tax relief, and incubator verification processes.</p>
+          <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[11px]">
+            <span class="text-emerald-400 font-mono">820 Chunks Embedded</span>
+            <span class="text-blue-400 hover:underline cursor-pointer">View Articles →</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3 hover:border-slate-700 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-mono font-medium">GeM / PROCUREMENT</span>
+            <span class="text-[10px] text-slate-400">Updated: Mar 2026</span>
+          </div>
+          <h3 class="text-sm font-bold text-white">Government e-Marketplace (GeM) GTC & Payment Timelines</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Mandatory terms for buyer CRAC generation, 10-day payment rule for MSME vendors, and penal interest provisions.</p>
+          <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[11px]">
+            <span class="text-emerald-400 font-mono">640 Chunks Embedded</span>
+            <span class="text-blue-400 hover:underline cursor-pointer">View Articles →</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= VIEW 3: SLA & QUERY TRENDS ANALYTICS ================= -->
+  <div id="view-analytics" class="hidden flex-1 overflow-y-auto p-6 bg-[#0b1120]">
+    <div class="max-w-6xl mx-auto space-y-6">
+      
+      <div class="pb-4 border-b border-slate-800">
+        <h1 class="text-xl font-bold text-white">Ministry Contact Center & AI Efficiency Metrics</h1>
+        <p class="text-xs text-slate-400 mt-1">Real-time reporting on query volumes, average resolution time, and AI self-service accuracy</p>
+      </div>
+
+      <!-- KPI Stat Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <div class="text-[11px] text-slate-400 font-medium uppercase">Total Queries (Month)</div>
+          <div class="text-2xl font-extrabold text-white mt-1">18,429</div>
+          <div class="text-[11px] text-emerald-400 mt-1">↑ 14% vs previous month</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <div class="text-[11px] text-slate-400 font-medium uppercase">Avg First Response Time</div>
+          <div class="text-2xl font-extrabold text-blue-400 mt-1">11 mins</div>
+          <div class="text-[11px] text-emerald-400 mt-1">Reduced from 4.2 hours (AI Co-pilot)</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <div class="text-[11px] text-slate-400 font-medium uppercase">AI Knowledge Match Rate</div>
+          <div class="text-2xl font-extrabold text-indigo-400 mt-1">94.8%</div>
+          <div class="text-[11px] text-slate-400 mt-1">Valid gazette clause retrieved</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <div class="text-[11px] text-slate-400 font-medium uppercase">Citizen Charter Compliance</div>
+          <div class="text-2xl font-extrabold text-emerald-400 mt-1">98.2%</div>
+          <div class="text-[11px] text-slate-400 mt-1">Resolved within 48h limit</div>
+        </div>
+      </div>
+
+      <!-- Query Volume by Sector -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+        <h3 class="text-sm font-bold text-white">Top Query Drivers across Commerce Sectors</h3>
+        
+        <div class="space-y-3 text-xs">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">DGFT: RoDTEP & Remission Rates (Agri & Textiles)</span>
+              <span class="font-mono text-slate-400">4,120 queries (38%)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div class="bg-amber-500 h-full rounded-full" style="width: 38%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">DPIIT: Section 80-IAC Tax Exemption Application Status</span>
+              <span class="font-mono text-slate-400">3,240 queries (28%)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div class="bg-blue-500 h-full rounded-full" style="width: 28%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">GeM: Delayed CRAC & Vendor Payment Release</span>
+              <span class="font-mono text-slate-400">2,490 queries (21%)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-full rounded-full" style="width: 21%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Multilingual Inquiries (Bhashini Indic Languages)</span>
+              <span class="font-mono text-slate-400">1,820 queries (13%)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div class="bg-orange-500 h-full rounded-full" style="width: 13%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Javascript Logic for Mock State & Chatwoot Features -->
+  <script>
+    // Sample Real-world Data for Commerce Ministry
+    const mockTickets = [
+      {
+        id: "TICK-DG-4102",
+        contactName: "Rajesh Agro Exports Ltd",
+        sender: "Kolkata, WB",
+        iec: "0508012345",
+        gstin: "07AAACR1234F1Z8",
+        channel: "Web Portal",
+        desk: "DGFT Export Wing",
+        departmentCode: "DGFT",
+        title: "RoDTEP subsidy claim rejected for organic tea shipment to UK",
+        preview: "Our shipping bill #8912301 was rejected for RoDTEP rebate under HS Code 0902. Please review...",
+        status: "Open",
+        priority: "High",
+        time: "12m ago",
+        aiMatch: "96%",
+        category: "Duty Remission (RoDTEP)",
+        hsCode: "0902.40.10",
+        sentiment: "Urgent",
+        messages: [
+          {
+            type: "user",
+            sender: "Vikram Sengupta (Rajesh Agro Exports)",
+            time: "10:15 AM",
+            text: "Respected Officer, our consignment of organic Darjeeling orthodox tea (Shipping Bill No: 8912301, dated 12/05/2026) exported via Kolkata port has been marked 'Ineligible for RoDTEP rebate' on the customs portal. As per DGFT notification, organic black tea under HS Code 0902 is entitled to 2.1% rebate. Kindly clarify why our claim is stalled."
+          },
+          {
+            type: "system",
+            text: "🤖 AI Knowledge Triage: Classified under Foreign Trade Policy (FTP) 2023 - Duty Remission Schemes. Relevant Gazette Notification No. 53/2023 auto-retrieved."
+          }
+        ],
+        clauses: [
+          {
+            title: "DGFT Notification No. 53/2023 - Appendix 4R",
+            citation: "Ministry of Commerce Gazette Notification S.O. 4112(E)",
+            text: "Exporters claiming RoDTEP rebate under ITC (HS) 0902.40 must have their electronic shipping bill tagged with APEDA organic export inspection code 'ORG-IND-2023' at the time of Let Export Order (LEO). If omitted, an amendment request under Section 149 of the Customs Act must be submitted to the Jurisdictional Customs Commissioner.",
+            actionText: "Cite Appendix 4R Procedure"
+          },
+          {
+            title: "FTP 2023 - Para 4.14(c) Amendment Window",
+            citation: "Handbook of Procedures Vol 1",
+            text: "A 90-day grace period is provided to rectify missing scheme codes by presenting APEDA transaction certificate to the EDI Helpdesk."
+          }
+        ],
+        suggestedDraft: "Dear Shri Vikram Sengupta,\n\nWith reference to your query regarding RoDTEP rebate for Shipping Bill No. 8912301 under HS Code 0902.40.10:\n\nAs per DGFT Gazette Notification No. 53/2023 (Appendix 4R), organic tea consignments require the APEDA organic inspection code 'ORG-IND-2023' tagged before the LEO. Since the code was missing in your EDI transmission, your claim was paused.\n\nResolution Steps:\n1. Apply for a post-LEO shipping bill amendment under Section 149 of the Customs Act at Kolkata Customs.\n2. Submit your valid APEDA transaction certificate through the ICEGATE portal.\n3. Upon amendment, the RoDTEP scroll will generate automatically in the next weekly cycle.\n\nBest regards,\nDGFT Export Assistance Desk",
+        profile: {
+          scale: "Medium Enterprise (MSME)",
+          turnover: "₹42.8 Cr / Year",
+          city: "Kolkata, West Bengal",
+          sector: "Agri-Commodities & Spice Processing"
+        }
+      },
+      {
+        id: "TICK-DP-1092",
+        contactName: "NexaTech Bio Pvt Ltd",
+        sender: "Bengaluru, KA",
+        iec: "0719827361",
+        gstin: "29AABCN5678P1ZQ",
+        channel: "Email",
+        desk: "DPIIT Startups Desk",
+        departmentCode: "DPIIT",
+        title: "Section 80-IAC tax exemption certificate pending past 90 days",
+        preview: "We filed Form-1 for 3-year tax holiday under Startup India. Application #DPIIT-89102 pending review...",
+        status: "Open",
+        priority: "Normal",
+        time: "1h ago",
+        aiMatch: "91%",
+        category: "Startup Tax Exemption",
+        hsCode: "N/A (BioTech Services)",
+        sentiment: "Neutral",
+        messages: [
+          {
+            type: "user",
+            sender: "Dr. Ananya Rao (NexaTech Bio)",
+            time: "09:30 AM",
+            text: "Hello DPIIT Support, our startup NexaTech Bio was incorporated in Dec 2023 and holds valid DPIIT Recognition (DIPP-98124). We submitted our Inter-Ministerial Board (IMB) application for 80-IAC certificate 94 days ago. Could you provide the board meeting timeline?"
+          },
+          {
+            type: "system",
+            text: "🤖 AI Knowledge Triage: Classified under Startup India Gazette Notification G.S.R. 127(E). IMB Review Queue verified."
+          }
+        ],
+        clauses: [
+          {
+            title: "DPIIT Notification G.S.R. 127(E) - Para 4",
+            citation: "Inter-Ministerial Board Guidelines",
+            text: "Applications for certification under Section 80-IAC of the Income Tax Act are reviewed in chronological order by the Inter-Ministerial Board convened twice a month. Startups can track meeting agenda papers via the Startup India portal dashboard.",
+            actionText: "Insert IMB Timeline"
+          }
+        ],
+        suggestedDraft: "Dear Dr. Ananya Rao,\n\nThank you for reaching out to the DPIIT Startup India Desk.\n\nYour application #DPIIT-89102 has been cleared by the preliminary technical scrutiny committee and is listed under Agenda Item 4 for the upcoming 84th Inter-Ministerial Board (IMB) meeting scheduled for next Thursday.\n\nYou will receive official intimation and the board's decision directly on your Startup India dashboard within 5 working days of the meeting.\n\nWarm regards,\nDPIIT Startup Support Desk",
+        profile: {
+          scale: "DPIIT Recognized Startup",
+          turnover: "₹3.2 Cr / Year",
+          city: "Bengaluru, Karnataka",
+          sector: "Biotechnology & Healthcare"
+        }
+      },
+      {
+        id: "TICK-GEM-8831",
+        contactName: "Precision Tools & Dies",
+        sender: "Ludhiana, PB",
+        iec: "0301928374",
+        gstin: "03AAACP9988K1ZY",
+        channel: "WhatsApp",
+        desk: "GeM Grievance Desk",
+        departmentCode: "GeM",
+        title: "GeM portal payment overdue by 65 days from public sector buyer",
+        preview: "Consignee Receipt (CRAC) was generated 2 months back. Buyer has not disbursed payment...",
+        status: "Escalated",
+        priority: "Urgent",
+        time: "2h ago",
+        aiMatch: "98%",
+        category: "MSME Samadhaan / GeM Terms",
+        hsCode: "8207.30 (Tooling)",
+        sentiment: "Frustrated / Escalated",
+        messages: [
+          {
+            type: "user",
+            sender: "Gurpreet Singh (Precision Tools)",
+            time: "08:15 AM",
+            text: "Sir, we supplied engineering fixtures worth ₹14.5 Lakhs under GeM Order #GEM-2026-B-1902 to a railway manufacturing unit. CRAC was issued on 15th March. It is now over 65 days, and payment is withheld without explanation. As an MSE unit, our working capital is locked."
+          },
+          {
+            type: "system",
+            text: "🤖 AI Knowledge Triage: Flagged MSME Development Act Section 15 violation. Auto-escalated to GeM Nodal Officer."
+          }
+        ],
+        clauses: [
+          {
+            title: "GeM General Terms & Conditions (GTC) Clause 12",
+            citation: "Ministry of Finance OM F.6/18/2019-PPD",
+            text: "Buyer must release 100% payment within 10 calendar days of CRAC generation for MSME sellers. In case of delay beyond 10 days, penal interest of 1% per month is auto-levied on the buyer organization and reported to the Department of Expenditure.",
+            actionText: "Cite GeM 10-day Payment Rule"
+          }
+        ],
+        suggestedDraft: "Dear Shri Gurpreet Singh,\n\nWe have reviewed GeM Order #GEM-2026-B-1902. Under Clause 12 of GeM GTC and Department of Expenditure guidelines, the buyer was mandated to disburse payment within 10 days of CRAC.\n\nAction Taken:\n1. A high-priority formal notice has been dispatched to the Nodal Finance Officer of the concerned purchasing unit.\n2. In accordance with Section 16 of the MSMED Act, compound penal interest is applicable for this delayed period.\n3. You are also advised to lodge a parallel claim on the MSME Samadhaan portal referencing this ticket ID.\n\nWe are actively monitoring this escalation for resolution within 72 hours.\n\nRegards,\nGeM Seller Assistance Cell",
+        profile: {
+          scale: "Micro Enterprise (MSE)",
+          turnover: "₹1.8 Cr / Year",
+          city: "Ludhiana, Punjab",
+          sector: "Heavy Engineering & Tooling"
+        }
+      },
+      {
+        id: "TICK-BH-9921",
+        contactName: "श्री बालाजी टेक्सटाइल्स (सूरत)",
+        sender: "Surat, GJ",
+        iec: "0812938475",
+        gstin: "24AAACS3344M1Z2",
+        channel: "Web Portal (Hindi)",
+        desk: "DGFT Regional Surat",
+        departmentCode: "DGFT",
+        title: "कस्टम ड्यूटी छूट और एडवांस ऑथराइजेशन स्कीम के तहत फैब्रिक आयात की अनुमति",
+        preview: "हमने पॉलिएस्टर यार्न आयात के लिए एडवांस लाइसेंस आवेदन संख्या #ADV-9901 भरी थी...",
+        status: "Open",
+        priority: "Normal",
+        time: "3h ago",
+        aiMatch: "88%",
+        category: "Advance Authorization (Textiles)",
+        hsCode: "5402.33 (Polyester Yarn)",
+        sentiment: "Neutral",
+        messages: [
+          {
+            type: "user",
+            sender: "रमेशभाई पटेल (सूरत)",
+            time: "07:30 AM",
+            text: "नमस्कार अधिकारी महोदय, हमारी फर्म ने रेडीमेड गारमेंट्स निर्यात के लिए पॉलिएस्टर यार्न शून्य कस्टम ड्यूटी पर आयात करने हेतु एडवांस ऑथराइजेशन के लिए आवेदन किया था। क्या 18 महीने की निर्यात बाध्यता (Export Obligation) में छूट मिल सकती है?"
+          },
+          {
+            type: "system",
+            text: "🌐 Bhashini Indic Engine: Automatically detected Hindi (hi_IN). Translated query available for officer view."
+          }
+        ],
+        clauses: [
+          {
+            title: "विदेश व्यापार नीति (FTP 2023) - पैरा 4.40",
+            citation: "डीजीएफटी अधिसूचना सं. 01/2023",
+            text: "एडवांस ऑथराइजेशन के तहत आयातित कच्चे माल पर निर्यात बाध्यता की मानक अवधि आयात की तारीख से 18 महीने है। क्षेत्रीय प्राधिकारी द्वारा 0.5% कंपोज़िशन शुल्क के भुगतान पर 6 महीने का अतिरिक्त विस्तार दिया जा सकता है।"
+          }
+        ],
+        suggestedDraft: "प्रिय रमेशभाई पटेल जी,\n\nआपके आवेदन संख्या #ADV-9901 के संबंध में विदेश व्यापार नीति 2023 के पैरा 4.40 के अनुसार:\n\nएडवांस ऑथराइजेशन में निर्यात बाध्यता (EO) की प्रारंभिक अवधि 18 माह होती है। यदि आप इसे बढ़ाना चाहते हैं, तो सूरत DGFT क्षेत्रीय कार्यालय में 0.5% कंपोज़िशन शुल्क के साथ ऑनलाइन 'Extension of Export Obligation' का आवेदन कर सकते हैं। इससे आपको 6 महीने का अतिरिक्त समय प्रदान किया जाएगा।\n\nसादर,\nडीजीएफटी क्षेत्रीय सहायता केंद्र, सूरत",
+        profile: {
+          scale: "Small Enterprise (MSME)",
+          turnover: "₹12.4 Cr / Year",
+          city: "Surat, Gujarat",
+          sector: "Manmade Textile & Garments"
+        }
+      }
+    ];
+
+    let currentTicketIndex = 0;
+    let composerMode = "reply"; // 'reply' or 'note'
+
+    function renderTicketsList() {
+      const container = document.getElementById("tickets-container");
+      container.innerHTML = "";
+
+      mockTickets.forEach((t, idx) => {
+        const isSelected = idx === currentTicketIndex;
+        const div = document.createElement("div");
+        div.className = `p-3.5 cursor-pointer transition ${isSelected ? 'bg-slate-800/90 border-l-4 border-blue-500' : 'hover:bg-slate-900/60'}`;
+        div.onclick = () => selectTicket(idx);
+
+        let priorityBadge = "";
+        if (t.priority === "High" || t.priority === "Urgent") {
+          priorityBadge = `<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] px-1.5 py-0.2 rounded font-medium">${t.priority}</span>`;
+        } else {
+          priorityBadge = `<span class="bg-slate-700 text-slate-300 text-[10px] px-1.5 py-0.2 rounded font-medium">${t.priority}</span>`;
+        }
+
+        let deptBadge = "";
+        if (t.departmentCode === "DGFT") {
+          deptBadge = `<span class="text-amber-400 bg-amber-500/10 px-1.5 py-0.2 rounded text-[10px] font-mono">DGFT</span>`;
+        } else if (t.departmentCode === "DPIIT") {
+          deptBadge = `<span class="text-blue-400 bg-blue-500/10 px-1.5 py-0.2 rounded text-[10px] font-mono">DPIIT</span>`;
+        } else {
+          deptBadge = `<span class="text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded text-[10px] font-mono">GeM</span>`;
+        }
+
+        div.innerHTML = `
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-white truncate max-w-[170px]">${t.contactName}</span>
+            <span class="text-[10px] text-slate-500 font-mono">${t.time}</span>
+          </div>
+          <p class="text-xs text-slate-300 font-medium line-clamp-1 mb-1.5">${t.title}</p>
+          <p class="text-[11px] text-slate-400 line-clamp-1 mb-2">${t.preview}</p>
+          <div class="flex items-center justify-between text-[11px]">
+            <div class="flex items-center space-x-1.5">
+              ${deptBadge}
+              ${priorityBadge}
+            </div>
+            <span class="text-[10px] text-indigo-400 font-mono flex items-center space-x-1">
+              <span>✨</span>
+              <span>AI ${t.aiMatch}</span>
+            </span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function selectTicket(idx) {
+      currentTicketIndex = idx;
+      renderTicketsList();
+      renderActiveConversation();
+      renderRightPanel();
+    }
+
+    function renderActiveConversation() {
+      const t = mockTickets[currentTicketIndex];
+      const header = document.getElementById("conversation-header");
+      
+      header.innerHTML = `
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xs text-blue-400">
+            ${t.contactName.substring(0, 2).toUpperCase()}
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="font-bold text-sm text-white">${t.contactName}</h3>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-mono border border-slate-700">IEC: ${t.iec}</span>
+              <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-medium">${t.desk}</span>
+            </div>
+            <p class="text-[11px] text-slate-400">${t.title}</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <select onchange="updateTicketStatus(this.value)" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded px-2.5 py-1 focus:outline-none">
+            <option value="Open" ${t.status === 'Open' ? 'selected' : ''}>Status: Open</option>
+            <option value="Pending" ${t.status === 'Pending' ? 'selected' : ''}>Status: Pending Review</option>
+            <option value="Escalated" ${t.status === 'Escalated' ? 'selected' : ''}>Status: Escalated to L3</option>
+            <option value="Resolved" ${t.status === 'Resolved' ? 'selected' : ''}>Status: Resolved</option>
+          </select>
+        </div>
+      `;
+
+      const msgContainer = document.getElementById("messages-container");
+      msgContainer.innerHTML = "";
+
+      t.messages.forEach(m => {
+        const msgDiv = document.createElement("div");
+
+        if (m.type === "system") {
+          msgDiv.className = "flex justify-center my-2";
+          msgDiv.innerHTML = `
+            <div class="bg-slate-900/90 border border-slate-800 text-slate-400 text-[11px] px-3 py-1.5 rounded-full flex items-center space-x-1.5 shadow-sm">
+              <span>${m.text}</span>
+            </div>
+          `;
+        } else if (m.type === "user") {
+          msgDiv.className = "flex flex-col space-y-1 max-w-2xl";
+          msgDiv.innerHTML = `
+            <div class="flex items-center space-x-2 text-[11px] text-slate-400">
+              <span class="font-semibold text-slate-200">${m.sender}</span>
+              <span>•</span>
+              <span class="font-mono">${m.time}</span>
+              <span class="bg-blue-900/40 text-blue-300 text-[10px] px-1.5 py-0.2 rounded border border-blue-800/50">${t.channel}</span>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 text-slate-200 text-xs p-3.5 rounded-2xl rounded-tl-sm shadow leading-relaxed whitespace-pre-line">
+              ${m.text}
+            </div>
+          `;
+        } else if (m.type === "agent") {
+          msgDiv.className = "flex flex-col space-y-1 max-w-2xl ml-auto items-end";
+          msgDiv.innerHTML = `
+            <div class="flex items-center space-x-2 text-[11px] text-slate-400">
+              <span class="font-semibold text-blue-400">${m.sender}</span>
+              <span>•</span>
+              <span class="font-mono">${m.time}</span>
+              <span class="bg-emerald-900/40 text-emerald-300 text-[10px] px-1.5 py-0.2 rounded border border-emerald-800/50">Official Response</span>
+            </div>
+            <div class="bg-blue-600/90 text-white text-xs p-3.5 rounded-2xl rounded-tr-sm shadow leading-relaxed whitespace-pre-line border border-blue-500">
+              ${m.text}
+            </div>
+          `;
+        } else if (m.type === "note") {
+          msgDiv.className = "flex justify-center my-2 w-full";
+          msgDiv.innerHTML = `
+            <div class="bg-amber-950/40 border border-amber-800/60 text-amber-200 text-xs p-3 rounded-lg w-full max-w-xl">
+              <div class="flex items-center justify-between font-bold text-[11px] text-amber-400 mb-1">
+                <span>🔒 Internal Ministry Note (${m.sender})</span>
+                <span class="font-mono text-[10px]">${m.time}</span>
+              </div>
+              <p class="leading-relaxed">${m.text}</p>
+            </div>
+          `;
+        }
+
+        msgContainer.appendChild(msgDiv);
+      });
+
+      // Update AI hint bar
+      document.getElementById("ai-suggestion-hint").innerText = t.clauses[0] ? t.clauses[0].title : "Knowledge Base Matched";
+      document.getElementById("reply-input").value = "";
+    }
+
+    function renderRightPanel() {
+      const t = mockTickets[currentTicketIndex];
+
+      // Copilot tab
+      document.getElementById("ai-confidence").innerText = `${t.aiMatch} Confidence`;
+      document.getElementById("ai-dept").innerText = t.desk;
+      document.getElementById("ai-category").innerText = t.category;
+      document.getElementById("ai-hscode").innerText = t.hsCode;
+      document.getElementById("ai-sentiment").innerText = t.sentiment;
+
+      const clausesContainer = document.getElementById("retrieved-clauses");
+      clausesContainer.innerHTML = "";
+
+      t.clauses.forEach((c, cIdx) => {
+        const card = document.createElement("div");
+        card.className = "bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-1.5 hover:border-slate-700 transition";
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-xs text-white">${c.title}</h4>
+            <span class="text-[10px] bg-slate-800 text-blue-400 px-1.5 py-0.5 rounded font-mono">Vector Hit #${cIdx + 1}</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono">${c.citation}</p>
+          <p class="text-[11px] text-slate-300 leading-relaxed">${c.text}</p>
+          <div class="pt-1 flex items-center justify-between">
+            <button onclick="insertClauseIntoReply('${escapeHtml(c.text)}')" class="text-[10px] text-blue-400 hover:text-blue-300 font-semibold flex items-center space-x-1">
+              <span>+ Insert Clause</span>
+            </button>
+            <span class="text-[10px] text-slate-500">Source: Official Gazette PDF</span>
+          </div>
+        `;
+        clausesContainer.appendChild(card);
+      });
+
+      // Profile Tab
+      document.getElementById("profile-name").innerText = t.contactName;
+      document.getElementById("profile-sector").innerText = t.profile.sector;
+      document.getElementById("profile-iec").innerText = t.iec;
+      document.getElementById("profile-gstin").innerText = t.gstin;
+      document.getElementById("profile-scale").innerText = t.profile.scale;
+      document.getElementById("profile-turnover").innerText = t.profile.turnover;
+      document.getElementById("profile-city").innerText = t.profile.city;
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/"/g, '&quot;');
+    }
+
+    function applyAiSuggestion() {
+      const t = mockTickets[currentTicketIndex];
+      document.getElementById("reply-input").value = t.suggestedDraft;
+    }
+
+    function triggerAiCoPilotDraft() {
+      applyAiSuggestion();
+    }
+
+    function insertClauseIntoReply(clauseText) {
+      const input = document.getElementById("reply-input");
+      input.value += (input.value ? "\n\n" : "") + "Reference Official Clause:\n\"" + clauseText + "\"";
+    }
+
+    function insertCannedTemplate() {
+      const input = document.getElementById("reply-input");
+      input.value = "Dear Citizen/Trader,\n\nWe acknowledge receipt of your query submitted to the Ministry of Commerce & Industry. Your documents are under verification as per standard guidelines.\n\nExpected turnaround: 48 working hours.\n\nRegards,\nGrievance Redressal Cell";
+    }
+
+    function setComposerMode(mode) {
+      composerMode = mode;
+      const replyBtn = document.getElementById("mode-reply-btn");
+      const noteBtn = document.getElementById("mode-note-btn");
+      const textarea = document.getElementById("reply-input");
+
+      if (mode === "reply") {
+        replyBtn.className = "px-2.5 py-1 rounded text-xs font-semibold bg-blue-600 text-white flex items-center space-x-1";
+        noteBtn.className = "px-2.5 py-1 rounded text-xs font-medium text-slate-400 hover:text-white bg-slate-800 flex items-center space-x-1";
+        textarea.placeholder = "Type your official response to the trader or use '/' for canned templates...";
+        textarea.className = "w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none font-normal";
+      } else {
+        noteBtn.className = "px-2.5 py-1 rounded text-xs font-semibold bg-amber-600 text-white flex items-center space-x-1";
+        replyBtn.className = "px-2.5 py-1 rounded text-xs font-medium text-slate-400 hover:text-white bg-slate-800 flex items-center space-x-1";
+        textarea.placeholder = "Write an internal note for L2/L3 officers (only ministry staff can view this)...";
+        textarea.className = "w-full bg-amber-950/20 border border-amber-800/60 rounded-lg p-2.5 text-xs text-amber-200 placeholder-amber-400/50 focus:outline-none focus:border-amber-500 resize-none font-normal";
+      }
+    }
+
+    function sendReplyMessage() {
+      const input = document.getElementById("reply-input");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const t = mockTickets[currentTicketIndex];
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      if (composerMode === "reply") {
+        t.messages.push({
+          type: "agent",
+          sender: "Rajesh Sharma (DGFT Officer)",
+          time: timeStr,
+          text: text
+        });
+      } else {
+        t.messages.push({
+          type: "note",
+          sender: "Rajesh Sharma",
+          time: timeStr,
+          text: text
+        });
+      }
+
+      input.value = "";
+      renderActiveConversation();
+      const msgBox = document.getElementById("messages-container");
+      msgBox.scrollTop = msgBox.scrollHeight;
+    }
+
+    function resolveCurrentTicket() {
+      const t = mockTickets[currentTicketIndex];
+      t.status = "Resolved";
+      t.messages.push({
+        type: "system",
+        text: `✅ Ticket marked as 'Resolved' by Officer R. Sharma. SLA fulfilled within 1h 48m.`
+      });
+      renderTicketsList();
+      renderActiveConversation();
+    }
+
+    function updateTicketStatus(newStatus) {
+      mockTickets[currentTicketIndex].status = newStatus;
+      renderTicketsList();
+    }
+
+    function switchRightTab(tab) {
+      const tabs = ["copilot", "profile", "sla"];
+      tabs.forEach(tName => {
+        const btn = document.getElementById(`tab-${tName}`);
+        const panel = document.getElementById(`panel-${tName}`);
+        if (tName === tab) {
+          btn.className = "flex-1 py-3 text-center border-b-2 border-blue-500 text-blue-400 bg-slate-800/40";
+          panel.classList.remove("hidden");
+        } else {
+          btn.className = "flex-1 py-3 text-center text-slate-400 hover:text-slate-200";
+          panel.classList.add("hidden");
+        }
+      });
+    }
+
+    function switchMainView(view) {
+      const views = ["inbox", "kb", "analytics"];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        const btn = document.getElementById(`nav-${v}`);
+        if (v === view) {
+          el.classList.remove("hidden");
+          btn.className = "px-3 py-1 rounded-md bg-blue-600 text-white shadow flex items-center space-x-1.5 transition";
+        } else {
+          el.classList.add("hidden");
+          btn.className = "px-3 py-1 rounded-md text-slate-400 hover:text-white flex items-center space-x-1.5 transition";
+        }
+      });
+    }
+
+    function proposeNewFaq() {
+      alert("✨ AI Knowledge Synthesis Triggered!\n\nA new draft FAQ article has been generated and sent to the DGFT Knowledge Administrator for approval:\n\nTitle: 'Resolving Missing APEDA Code in RoDTEP EDI Transmission'\nCategory: Foreign Trade Policy 2023 > Remissions");
+    }
+
+    // Initialize on load
+    window.onload = function() {
+      renderTicketsList();
+      renderActiveConversation();
+      renderRightPanel();
+    };
+  </script>
+</body>
+</html>
