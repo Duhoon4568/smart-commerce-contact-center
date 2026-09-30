@@ -1,14 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Lock, FileText, CheckCircle2, Sparkles, Scale, Mic, Shield, Smartphone, Globe, Activity, Check, Download, AlertCircle } from 'lucide-react';
+import { Send, Lock, FileText, CheckCircle2, Sparkles, Scale, Mic, Shield, Smartphone, Globe, Activity, ArrowRight, Share2, CornerDownRight, Check, X, Building } from 'lucide-react';
 
-export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, onStatusChange }) {
+export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, onStatusChange, onTransferTicket }) {
   const [composerMode, setComposerMode] = useState('reply'); // 'reply' (Public Order) or 'note' (Green Sheet)
   const [inputText, setInputText] = useState('');
   const [isVoiceRecording, setIsVoiceRecording] = useState(false);
   const [voiceTranscript, setVoiceTranscript] = useState(null);
   const [isAgentRunning, setIsAgentRunning] = useState(false);
   const [agentPipelineSteps, setAgentPipelineSteps] = useState(null);
+  const [showTransferModal, setShowTransferModal] = useState(false);
+  const [selectedTransferDesk, setSelectedTransferDesk] = useState('DPIIT');
+  const [transferReason, setTransferReason] = useState('');
   const messagesEndRef = useRef(null);
+
+  const availableDesks = [
+    { code: 'DGFT', name: 'DGFT Export Promotion Desk', desc: 'Foreign Trade Policy, RoDTEP, RoSCTL, Advance Licenses' },
+    { code: 'DPIIT', name: 'DPIIT Industrial Licencing & Startup Cell', desc: 'Section 80-IAC, Industrial Approvals, Pharma SUGAM' },
+    { code: 'GeM', name: 'GeM PSU Procurement Grievance Cell', desc: 'CRAC verification, 10-day payment rules, MSMED Act' },
+    { code: 'CUSTOMS', name: 'CBIC Port Customs & EDI Desk', desc: 'Section 149 Bill amendments, ICEGATE transmission, LEO' }
+  ];
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -33,6 +43,18 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
       handleSend();
     }
+  };
+
+  const executeTransfer = () => {
+    const targetDesk = availableDesks.find(d => d.code === selectedTransferDesk) || availableDesks[0];
+    onTransferTicket(
+      ticket.id,
+      targetDesk.code,
+      targetDesk.name,
+      transferReason.trim() || "Subject matter requires specialized jurisdiction and statutory examination."
+    );
+    setShowTransferModal(false);
+    setTransferReason('');
   };
 
   // Simulates Multi-Agent Pipeline Execution
@@ -82,9 +104,9 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
   };
 
   return (
-    <main className="flex-1 flex flex-col bg-[#070c18] overflow-hidden">
+    <main className="flex-1 flex flex-col bg-[#070c18] overflow-hidden relative">
       
-      {/* Docket Header - Clean & Spacious */}
+      {/* Docket Header */}
       <div className="px-6 py-4 bg-[#0c142b] border-b border-slate-800/80 flex items-center justify-between shrink-0">
         <div className="space-y-1">
           <div className="flex items-center space-x-3">
@@ -104,7 +126,9 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
           </div>
           
           <div className="flex items-center space-x-2 text-xs text-slate-400">
-            <span className="text-slate-300 font-semibold">{ticket.desk}</span>
+            <span className="text-blue-300 font-bold bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800/40">
+              {ticket.desk}
+            </span>
             <span>•</span>
             <span className="text-amber-300 font-medium">HS Code: {ticket.hsCode}</span>
             <span>•</span>
@@ -112,9 +136,17 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
           </div>
         </div>
 
-        {/* Status Dropdown */}
+        {/* Action Controls: Status & Re-Route Button */}
         <div className="flex items-center space-x-3">
-          <span className="text-xs text-slate-400 font-medium hidden sm:inline">Action Status:</span>
+          {/* Smart Agent Re-Route / Transfer Button */}
+          <button
+            onClick={() => setShowTransferModal(true)}
+            className="bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-blue-300 hover:text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center space-x-2 transition shadow-sm"
+          >
+            <Share2 className="w-3.5 h-3.5 text-blue-400" />
+            <span>Transfer / Re-Route File</span>
+          </button>
+
           <select
             value={ticket.status}
             onChange={(e) => onStatusChange(e.target.value)}
@@ -127,6 +159,101 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
           </select>
         </div>
       </div>
+
+      {/* Cross-Department Transfer Modal Dialog */}
+      {showTransferModal && (
+        <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0f172a] border border-slate-700 rounded-2xl p-6 max-w-lg w-full space-y-4 shadow-2xl animate-fadeIn">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-bold">
+                  <Share2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-sm text-white">Seamless Inter-Agent Dossier Transfer</h3>
+                  <p className="text-xs text-slate-400">Re-route file to the correct specialized department cell</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowTransferModal(false)}
+                className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* AI Recommendation Alert */}
+            <div className="bg-indigo-950/40 border border-indigo-800/60 rounded-xl p-3 text-xs space-y-1">
+              <div className="flex items-center space-x-1.5 text-indigo-300 font-bold">
+                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <span>AI Automated Route Recommendation:</span>
+              </div>
+              <p className="text-slate-300 text-[11px] leading-relaxed">
+                If the query involves raw material certification, transfer to <strong>DPIIT / Pharma Cell</strong>. If it involves Customs port amendments, transfer to <strong>CBIC Port Customs</strong>.
+              </p>
+            </div>
+
+            {/* Target Desk Selection */}
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-300">Select Destination Department Desk:</label>
+              <div className="space-y-1.5">
+                {availableDesks.map((d) => (
+                  <label
+                    key={d.code}
+                    className={`flex items-start space-x-3 p-3 rounded-xl border cursor-pointer transition ${
+                      selectedTransferDesk === d.code
+                        ? 'bg-blue-600/20 border-blue-500 text-white'
+                        : 'bg-slate-900/60 border-slate-800 text-slate-300 hover:bg-slate-800/60'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="targetDesk"
+                      value={d.code}
+                      checked={selectedTransferDesk === d.code}
+                      onChange={() => setSelectedTransferDesk(d.code)}
+                      className="mt-0.5 text-blue-600 focus:ring-0"
+                    />
+                    <div className="text-xs space-y-0.5">
+                      <p className="font-bold text-white">{d.name}</p>
+                      <p className="text-[11px] text-slate-400">{d.desc}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Transfer Reason */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-300">Transfer Reason / Noting for Receiving Officer:</label>
+              <textarea
+                rows={2}
+                value={transferReason}
+                onChange={(e) => setTransferReason(e.target.value)}
+                placeholder="e.g. Matters relate to SUGAM CDSCO drug master validation; forwarding to DPIIT Pharma desk with complete file history."
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+              />
+            </div>
+
+            {/* Buttons */}
+            <div className="flex items-center justify-end space-x-3 pt-2">
+              <button
+                onClick={() => setShowTransferModal(false)}
+                className="px-4 py-2 text-xs font-bold text-slate-400 hover:text-white bg-slate-800 rounded-xl"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={executeTransfer}
+                className="px-5 py-2 text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-500 rounded-xl shadow-lg shadow-blue-900/40 flex items-center space-x-1.5"
+              >
+                <span>Confirm & Transfer File</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Voice Assistant Notification Banner */}
       {voiceTranscript && (
@@ -184,11 +311,17 @@ export default function ChatWorkspace({ ticket, onSendMessage, onResolveTicket, 
       <div className="flex-1 overflow-y-auto p-6 space-y-5">
         
         {ticket.messages.map((m) => {
+          // Automated System Notification (e.g. Transfers, AI Triage)
           if (m.type === 'system') {
+            const isTransfer = m.text.includes("🔀") || m.text.includes("Transferred");
             return (
               <div key={m.id || Math.random()} className="flex justify-center my-3">
-                <div className="bg-slate-900/90 border border-indigo-500/20 text-indigo-300 text-xs px-4 py-2 rounded-xl flex items-center space-x-2 shadow-sm max-w-2xl">
-                  <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                <div className={`text-xs px-4 py-2.5 rounded-2xl flex items-center space-x-2.5 shadow-md max-w-2xl border ${
+                  isTransfer
+                    ? 'bg-amber-950/40 border-amber-500/40 text-amber-200'
+                    : 'bg-slate-900/90 border-indigo-500/20 text-indigo-300'
+                }`}>
+                  {isTransfer ? <Share2 className="w-4 h-4 text-amber-400 shrink-0" /> : <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />}
                   <span className="font-medium leading-relaxed">{m.text}</span>
                 </div>
               </div>

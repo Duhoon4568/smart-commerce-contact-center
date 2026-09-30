@@ -140,6 +140,47 @@ class GazetteRAGAgent:
     def search_gazette(cls, category: str) -> List[Dict[str, Any]]:
         return cls.KNOWLEDGE_VAULT
 
+class InterAgentHandoffAgent:
+    """Detects when a query cannot be fully resolved by the assigned agent and recommends seamless re-routing."""
+    
+    @staticmethod
+    def evaluate_handoff(current_desk: str, query: str, triage_result: Dict[str, Any]) -> Dict[str, Any]:
+        q_lower = query.lower()
+        
+        # Check cross-jurisdiction conditions
+        if current_desk == "DGFT" and ("cdsco" in q_lower or "pharma" in q_lower or "api" in q_lower or "sugam" in q_lower):
+            return {
+                "needs_handoff": True,
+                "target_department": "DPIIT Industrial Licencing & Startup Cell",
+                "target_code": "DPIIT",
+                "reason": "Pharma API formulation NOC requires CDSCO/SUGAM verification under DPIIT jurisdiction.",
+                "confidence": 0.94
+            }
+        elif "port" in q_lower and "amendment" in q_lower and "section 149" in q_lower:
+            return {
+                "needs_handoff": True,
+                "target_department": "CBIC Port Customs & EDI Desk",
+                "target_code": "CUSTOMS",
+                "reason": "Shipping bill EDI amendment lies with Jurisdictional Customs Commissioner at port.",
+                "confidence": 0.92
+            }
+        elif current_desk != "GeM" and ("payment" in q_lower or "gem" in q_lower or "psu" in q_lower):
+            return {
+                "needs_handoff": True,
+                "target_department": "GeM PSU Procurement Grievance Cell",
+                "target_code": "GeM",
+                "reason": "Public sector procurement dispute falls under GeM GTC and MSMED Act.",
+                "confidence": 0.98
+            }
+            
+        return {
+            "needs_handoff": False,
+            "target_department": current_desk,
+            "target_code": triage_result.get("department_code", current_desk),
+            "reason": "Assigned agent has full statutory jurisdiction.",
+            "confidence": 0.95
+        }
+
 class LegalDrafterAgent:
     """Synthesizes formal government order drafts citing exact gazettes."""
     

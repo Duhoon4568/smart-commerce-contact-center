@@ -66,6 +66,33 @@ export default function App() {
     );
   };
 
+  // 🔀 Inter-Agent / Cross-Department Dossier Transfer Handler
+  const handleTransferTicket = (ticketId, targetDeptCode, targetDeskName, reason) => {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    setTickets((prev) =>
+      prev.map((t) => {
+        if (t.id !== ticketId) return t;
+
+        const transferMsg = {
+          id: Date.now(),
+          type: 'system',
+          text: `🔀 Inter-Agent Dossier Transfer: Re-routed from [${t.desk}] to [${targetDeskName}]. Noting: "${reason}". Complete case history & legal precedents transferred.`
+        };
+
+        return {
+          ...t,
+          departmentCode: targetDeptCode,
+          desk: targetDeskName,
+          messages: [...t.messages, transferMsg]
+        };
+      })
+    );
+
+    alert(`✅ Case Docket #${ticketId} successfully transferred to ${targetDeskName}!\n\nReason: "${reason}"\n\nThe receiving officer has received the file with full context. Exporter notified via SMS/Portal.`);
+  };
+
   const handleInsertClause = (clauseText) => {
     alert(`Gazette Clause attached to draft order:\n\n"${clauseText}"\n\nYou can review or edit it before final digital dispatch.`);
   };
@@ -99,6 +126,7 @@ export default function App() {
             onSendMessage={handleSendMessage}
             onResolveTicket={handleResolveTicket}
             onStatusChange={handleStatusChange}
+            onTransferTicket={handleTransferTicket}
           />
 
           {isRightPanelOpen && (
