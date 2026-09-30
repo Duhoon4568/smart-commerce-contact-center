@@ -12,6 +12,7 @@ export default function App() {
   const [activeDesk, setActiveDesk] = useState('all');
   const [tickets, setTickets] = useState(initialTickets);
   const [selectedTicketId, setSelectedTicketId] = useState(initialTickets[0].id);
+  const [isRightPanelOpen, setIsRightPanelOpen] = useState(true);
 
   const activeTicket = tickets.find((t) => t.id === selectedTicketId) || tickets[0];
 
@@ -26,7 +27,7 @@ export default function App() {
         const newMsg = {
           id: Date.now(),
           type: mode === 'reply' ? 'agent' : 'note',
-          sender: mode === 'reply' ? 'Rajesh Sharma (DGFT Officer)' : 'Rajesh Sharma (Confidential Note)',
+          sender: mode === 'reply' ? 'Rajesh Sharma (Zonal DGFT Officer)' : 'Rajesh Sharma (Internal Noting)',
           time: timeStr,
           text: text
         };
@@ -47,7 +48,7 @@ export default function App() {
         const systemMsg = {
           id: Date.now(),
           type: 'system',
-          text: `✅ Grievance Dossier Marked as 'Disposed / Order Issued' by Officer R. Sharma. Citizen Charter SLA fulfilled.`
+          text: `✅ Commercial Grievance Marked as 'Disposed / Order Issued' by Officer R. Sharma. Citizen Charter SLA fulfilled.`
         };
 
         return {
@@ -66,19 +67,21 @@ export default function App() {
   };
 
   const handleInsertClause = (clauseText) => {
-    alert(`Gazette Clause attached:\n\n"${clauseText}"\n\nYou can paste it directly into your official order.`);
+    alert(`Gazette Clause attached to draft order:\n\n"${clauseText}"\n\nYou can review or edit it before final digital dispatch.`);
   };
 
   const handleProposeFaq = () => {
-    alert("✨ AI Knowledge Synthesis Triggered!\n\nA new draft Trade Policy Circular has been generated and queued for Joint Secretary review:\n\nTitle: 'Clarification on APEDA Export Inspection Codes for RoDTEP EDI Claims'\nPolicy Chapter: FTP 2023 > Remissions");
+    alert("✨ Proactive Regulatory Intelligence Triggered!\n\nA new draft Trade Policy Circular has been generated and queued for Joint Secretary review:\n\nTitle: 'Clarification on Bank PFMS Validation for RoSCTL e-Scrip Clearance'\nPolicy Chapter: FTP 2023 > Chapter 4 Remissions");
   };
 
   return (
-    <div className="bg-[#080d1a] text-slate-100 h-screen flex flex-col overflow-hidden select-none font-sans">
+    <div className="bg-[#070c18] text-slate-100 h-screen flex flex-col overflow-hidden select-none font-sans">
       <Header
         currentView={currentView}
         setCurrentView={setCurrentView}
         ticketsCount={tickets.length}
+        isRightPanelOpen={isRightPanelOpen}
+        setIsRightPanelOpen={setIsRightPanelOpen}
       />
 
       {currentView === 'inbox' && (
@@ -98,11 +101,14 @@ export default function App() {
             onStatusChange={handleStatusChange}
           />
 
-          <RightPanel
-            ticket={activeTicket}
-            onInsertClause={handleInsertClause}
-            onProposeFaq={handleProposeFaq}
-          />
+          {isRightPanelOpen && (
+            <RightPanel
+              ticket={activeTicket}
+              onInsertClause={handleInsertClause}
+              onProposeFaq={handleProposeFaq}
+              onClose={() => setIsRightPanelOpen(false)}
+            />
+          )}
         </div>
       )}
 

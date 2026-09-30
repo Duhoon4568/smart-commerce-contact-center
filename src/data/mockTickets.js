@@ -1,195 +1,247 @@
 export const initialTickets = [
   {
-    id: "TICK-DG-4102",
-    contactName: "Rajesh Agro Exports Ltd",
-    sender: "Kolkata, WB",
-    iec: "0508012345",
-    gstin: "07AAACR1234F1Z8",
-    channel: "Web Portal",
-    desk: "DGFT Export Wing",
+    id: "FILE-DGFT/2026/0942",
+    contactName: "Tiruppur Apparel Exports Ltd",
+    sender: "Tiruppur Textile Cluster, Tamil Nadu",
+    iec: "3208019482",
+    gstin: "33AAACT9182L1Z4",
+    channel: "DGFT Exporter Portal",
+    desk: "DGFT Export Promotion Desk",
     departmentCode: "DGFT",
-    title: "RoDTEP subsidy claim rejected for organic tea shipment to UK",
-    preview: "Our shipping bill #8912301 was rejected for RoDTEP rebate under HS Code 0902. Please review...",
+    title: "Pending RoSCTL rebate credit of ₹38.4 Lakhs on 5 container shipments of cotton apparel to EU",
+    preview: "Shipping bills #771201 to #771205 cleared Chennai port under RoSCTL scheme. E-scrip not generated past 45 days...",
     status: "Open",
-    priority: "High",
-    time: "12m ago",
-    aiMatch: "96%",
-    category: "Duty Remission (RoDTEP)",
-    hsCode: "0902.40.10",
-    sentiment: "Urgent",
+    priority: "High Priority",
+    time: "15m ago",
+    aiMatch: "97%",
+    category: "RoSCTL Rebate Scheme (Apparel)",
+    hsCode: "6109.10 (Cotton Knitwear)",
+    sentiment: "High Business Urgency",
     messages: [
       {
         id: 1,
         type: "user",
-        sender: "Vikram Sengupta (Rajesh Agro Exports)",
-        time: "10:15 AM",
-        text: "Respected Officer, our consignment of organic Darjeeling orthodox tea (Shipping Bill No: 8912301, dated 12/05/2026) exported via Kolkata port has been marked 'Ineligible for RoDTEP rebate' on the customs portal. As per DGFT notification, organic black tea under HS Code 0902 is entitled to 2.1% rebate. Kindly clarify why our claim is stalled."
+        sender: "K. Soundararajan (Managing Director)",
+        time: "10:30 AM",
+        text: "Respected Officer,\n\nOur textile manufacturing unit in Tiruppur dispatched 5 consignments of 100% organic cotton knitted garments (total export value ₹4.2 Crore, Shipping Bill Nos: 771201 to 771205) via Chennai Port to Hamburg, Germany. \n\nUnder the Ministry's RoSCTL (Rebate of State and Central Taxes and Levies) scheme, we are entitled to a 4.8% rebate rebate scroll worth ₹38.4 Lakhs. It has been over 45 days since Let Export Order (LEO) was granted, but our ICEGATE e-scrip ledger still shows 'Scroll Generation Suspended'.\n\nBecause our working capital is locked, we request immediate technical clearance and release of our scrips."
       },
       {
         id: 2,
         type: "system",
-        text: "🤖 AI Knowledge Triage: Classified under Foreign Trade Policy (FTP) 2023 - Duty Remission Schemes. Relevant Gazette Notification No. 53/2023 auto-retrieved."
+        text: "🤖 AI Intelligence Triage: Identified as RoSCTL Scrip Issue under Foreign Trade Policy (FTP 2023) - Chapter 4. Cross-referenced with CBIC Notification No. 77/2021-Customs."
       }
     ],
     clauses: [
       {
-        title: "DGFT Notification No. 53/2023 - Appendix 4R",
-        citation: "Ministry of Commerce Gazette Notification S.O. 4112(E)",
-        text: "Exporters claiming RoDTEP rebate under ITC (HS) 0902.40 must have their electronic shipping bill tagged with APEDA organic export inspection code 'ORG-IND-2023' at the time of Let Export Order (LEO). If omitted, an amendment request under Section 149 of the Customs Act must be submitted to the Jurisdictional Customs Commissioner."
+        title: "Ministry of Textiles Notification No. 12015/11/2020-T&R",
+        citation: "Gazette of India Extraordinary S.O. 3122(E)",
+        text: "RoSCTL e-scrips for apparel exports under Chapters 61 & 62 shall be credited to the exporter's electronic duty credit ledger within 15 calendar days from the date of realization of shipping bill scrolls, provided no active EPCG export obligation default notice is flagged."
       },
       {
-        title: "FTP 2023 - Para 4.14(c) Amendment Window",
-        citation: "Handbook of Procedures Vol 1",
-        text: "A 90-day grace period is provided to rectify missing scheme codes by presenting APEDA transaction certificate to the EDI Helpdesk."
+        title: "CBIC Circular No. 22/2023 - Port Scrip Rectification",
+        citation: "Department of Revenue Trade Circular",
+        text: "Where an exporter's e-scrip scroll is paused due to PFMS bank validation mismatch, the Regional DGFT office may issue a manual transmission override to the customs server within 24 hours."
       }
     ],
-    suggestedDraft: "Dear Shri Vikram Sengupta,\n\nWith reference to your query regarding RoDTEP rebate for Shipping Bill No. 8912301 under HS Code 0902.40.10:\n\nAs per DGFT Gazette Notification No. 53/2023 (Appendix 4R), organic tea consignments require the APEDA organic inspection code 'ORG-IND-2023' tagged before the LEO. Since the code was missing in your EDI transmission, your claim was paused.\n\nResolution Steps:\n1. Apply for a post-LEO shipping bill amendment under Section 149 of the Customs Act at Kolkata Customs.\n2. Submit your valid APEDA transaction certificate through the ICEGATE portal.\n3. Upon amendment, the RoDTEP scroll will generate automatically in the next weekly cycle.\n\nBest regards,\nDGFT Export Assistance Desk",
+    suggestedDraft: "Dear Shri K. Soundararajan,\n\nRef: Grievance Dossier #FILE-DGFT/2026/0942 regarding RoSCTL Rebate for Shipping Bills #771201–771205.\n\nUpon automated verification with Chennai Customs EDI, your RoSCTL scroll was held due to a pending PFMS IFSC code validation on the ICEGATE bank management module.\n\nResolution & Directions:\n1. The DGFT Directorate has transmitted an automated API override to Chennai Customs.\n2. Your RoSCTL e-scrip scroll for ₹38,40,000/- is approved and scheduled to credit to your electronic duty ledger in tonight's EDI settlement batch.\n\nIssued with the approval of the Zonal Joint Director General of Foreign Trade.\n\nRegards,\nDGFT Export Assistance Desk",
     profile: {
       scale: "Medium Enterprise (MSME)",
-      turnover: "₹42.8 Cr / Year",
-      city: "Kolkata, West Bengal",
-      sector: "Agri-Commodities & Spice Processing"
+      turnover: "₹64.5 Crore / Year",
+      city: "Tiruppur, Tamil Nadu",
+      sector: "Textiles, Apparels & Knitwear Manufacturing"
     }
   },
   {
-    id: "TICK-DP-1092",
-    contactName: "NexaTech Bio Pvt Ltd",
-    sender: "Bengaluru, KA",
-    iec: "0719827361",
-    gstin: "29AABCN5678P1ZQ",
-    channel: "Email",
-    desk: "DPIIT Startups Desk",
+    id: "FILE-DP-2026/1104",
+    contactName: "Bharat Bulk Drugs & Pharma Pvt Ltd",
+    sender: "Hyderabad Pharma City, Telangana",
+    iec: "0711928301",
+    gstin: "36AABCB4411P1Z9",
+    channel: "National Single Window (NSWS)",
+    desk: "DPIIT Industrial Approvals",
     departmentCode: "DPIIT",
-    title: "Section 80-IAC tax exemption certificate pending past 90 days",
-    preview: "We filed Form-1 for 3-year tax holiday under Startup India. Application #DPIIT-89102 pending review...",
+    title: "Advance License customs duty exemption on API raw material import for US export formulation",
+    preview: "Application for duty-free import of pharmaceutical intermediates for life-saving cardiovascular drugs...",
+    status: "Open",
+    priority: "Urgent",
+    time: "42m ago",
+    aiMatch: "95%",
+    category: "Pharma Advance Authorization",
+    hsCode: "2933.39 (Organic API Chemicals)",
+    sentiment: "Urgent Regulatory Filing",
+    messages: [
+      {
+        id: 1,
+        type: "user",
+        sender: "Dr. Srinivas Reddy (Head of Regulatory Affairs)",
+        time: "09:45 AM",
+        text: "Dear Department Officers,\n\nBharat Bulk Drugs holds USFDA and WHO-GMP certifications at our Hyderabad facility. We have received an export order worth $2.8 Million for cardiovascular formulations from the United States.\n\nWe applied for an Advance Authorization (File Ref #PHARMA-HYD-991) to import 12 metric tonnes of chemical precursor duty-free. The port customs authority is requiring a dual NOC from CDSCO which is already covered under the Ministry's 2024 Fast-Track Pharma Exemption Circular. We request clarification so customs clearance at JNPT Port is not stalled."
+      },
+      {
+        id: 2,
+        type: "system",
+        text: "🤖 AI Intelligence Triage: Matched DPIIT & DGFT Joint Notification on Pharmaceutical Export Facilitation. Fast-Track Advance Authorization criteria verified."
+      }
+    ],
+    clauses: [
+      {
+        title: "DPIIT & DGFT Public Notice No. 48/2023 - Pharma Advance License",
+        citation: "Foreign Trade Policy 2023 - Chapter 4 (Duty Exemption Scheme)",
+        text: "Recognized USFDA / WHO-GMP approved pharmaceutical manufacturing units exporting formulations are granted deemed fast-track clearance for Advance Authorization inputs without requiring separate port-level NOCs, provided the Drug Master File (DMF) is registered on the CDSCO SUGAM portal."
+      }
+    ],
+    suggestedDraft: "Dear Dr. Srinivas Reddy,\n\nRef: Advance Authorization Fast-Track Clearance for Active Pharmaceutical Intermediates.\n\nIn accordance with DGFT Public Notice No. 48/2023 read with Chapter 4 of FTP 2023:\n\nYour facility's WHO-GMP credentials and SUGAM portal DMF submission have been cross-verified. JNPT Customs EDI has been furnished with an electronic clearance certificate under the National Single Window System (NSWS).\n\nYour raw material consignment may be cleared at 0% basic customs duty under Advance Authorization License #PHARMA-HYD-991.\n\nYours faithfully,\nIndustrial Licencing & Export Desk,\nDPIIT & DGFT Cell",
+    profile: {
+      scale: "Large Enterprise",
+      turnover: "₹185.0 Crore / Year",
+      city: "Hyderabad, Telangana",
+      sector: "Active Pharmaceutical Ingredients (APIs) & Bulk Drugs"
+    }
+  },
+  {
+    id: "FILE-EPCG/2026/3012",
+    contactName: "Kirloskar Precision Auto Components",
+    sender: "Chakan Industrial Zone, Pune",
+    iec: "3104928172",
+    gstin: "27AAACK5512N1ZQ",
+    channel: "DGFT Portal",
+    desk: "DGFT Capital Goods Desk",
+    departmentCode: "DGFT",
+    title: "EPCG 0% duty machinery import: Export Obligation Discharge Certificate (EODC) issuance delay",
+    preview: "We completed 6x export obligation on 5-Axis CNC Milling machines. Bond cancellation pending...",
     status: "Open",
     priority: "Normal",
     time: "1h ago",
-    aiMatch: "91%",
-    category: "Startup Tax Exemption",
-    hsCode: "N/A (BioTech Services)",
-    sentiment: "Neutral",
+    aiMatch: "93%",
+    category: "EPCG Scheme (Capital Goods)",
+    hsCode: "8466.93 (Precision Machine Tools)",
+    sentiment: "Administrative Follow-up",
     messages: [
       {
         id: 1,
         type: "user",
-        sender: "Dr. Ananya Rao (NexaTech Bio)",
-        time: "09:30 AM",
-        text: "Hello DPIIT Support, our startup NexaTech Bio was incorporated in Dec 2023 and holds valid DPIIT Recognition (DIPP-98124). We submitted our Inter-Ministerial Board (IMB) application for 80-IAC certificate 94 days ago. Could you provide the board meeting timeline?"
+        sender: "Milind Deshmukh (GM - Supply Chain & Trade Compliance)",
+        time: "09:00 AM",
+        text: "Respected Authorities,\n\nUnder EPCG Authorization #0330018892 dated 14/02/2022, we imported high-precision CNC machinery at 0% customs duty for automotive transmission parts manufacturing.\n\nOur statutory Export Obligation was ₹18.2 Crore within 6 years. We have already exported ₹22.6 Crore worth of precision gears to BMW and Hyundai (verified by Bank Realization Certificates - e-BRC). We submitted our EODC closure docket 60 days ago. Because of the open customs bank guarantee, our credit lines are blocked. Kindly issue the EODC."
       },
       {
         id: 2,
         type: "system",
-        text: "🤖 AI Knowledge Triage: Classified under Startup India Gazette Notification G.S.R. 127(E). IMB Review Queue verified."
+        text: "🤖 AI Intelligence Triage: Export Obligation fulfilled (124% of quota). Audited against e-BRC repository on DGFT Portal."
       }
     ],
     clauses: [
       {
-        title: "DPIIT Notification G.S.R. 127(E) - Para 4",
-        citation: "Inter-Ministerial Board Guidelines",
-        text: "Applications for certification under Section 80-IAC of the Income Tax Act are reviewed in chronological order by the Inter-Ministerial Board convened twice a month. Startups can track meeting agenda papers via the Startup India portal dashboard."
+        title: "FTP 2023 - Paragraph 5.14: Redemption of EPCG Authorizations",
+        citation: "Handbook of Procedures Vol 1",
+        text: "Where an authorization holder fulfills 100% of the export obligation substantiated by electronic e-BRCs, the Regional Authority shall issue the Export Obligation Discharge Certificate (EODC) within 30 days and direct Customs to release the bank guarantee."
       }
     ],
-    suggestedDraft: "Dear Dr. Ananya Rao,\n\nThank you for reaching out to the DPIIT Startup India Desk.\n\nYour application #DPIIT-89102 has been cleared by the preliminary technical scrutiny committee and is listed under Agenda Item 4 for the upcoming 84th Inter-Ministerial Board (IMB) meeting scheduled for next Thursday.\n\nYou will receive official intimation and the board's decision directly on your Startup India dashboard within 5 working days of the meeting.\n\nWarm regards,\nDPIIT Startup Support Desk",
+    suggestedDraft: "Dear Shri Milind Deshmukh,\n\nRef: EPCG Authorization #0330018892 - Grant of EODC & Bank Guarantee Release.\n\nScrutiny of your e-BRC submissions confirms that Kirloskar Precision Auto Components has completed 124.1% of its mandatory export obligation.\n\nAction Taken:\n1. Export Obligation Discharge Certificate (EODC) #EODC-PUNE-2026-881 has been issued.\n2. An automated instruction has been transmitted to Mumbai Air Cargo Customs to cancel the bank guarantee of ₹45,00,000/-.\n\nRegards,\nRegional DGFT Pune Office",
     profile: {
-      scale: "DPIIT Recognized Startup",
-      turnover: "₹3.2 Cr / Year",
-      city: "Bengaluru, Karnataka",
-      sector: "Biotechnology & Healthcare"
+      scale: "Large Enterprise",
+      turnover: "₹142.0 Crore / Year",
+      city: "Pune, Maharashtra",
+      sector: "Automotive Precision Engineering & Capital Goods"
     }
   },
   {
-    id: "TICK-GEM-8831",
-    contactName: "Precision Tools & Dies",
-    sender: "Ludhiana, PB",
-    iec: "0301928374",
-    gstin: "03AAACP9988K1ZY",
-    channel: "WhatsApp",
-    desk: "GeM Grievance Desk",
+    id: "FILE-GEM/2026/8831",
+    contactName: "Shree Jagannath Steel & Fabricators",
+    sender: "Rourkela Steel Corridor, Odisha",
+    iec: "2401928374",
+    gstin: "21AAACJ9988K1ZY",
+    channel: "WhatsApp Business (+91 94370-XXXXX)",
+    desk: "GeM & MSME Samadhaan Desk",
     departmentCode: "GeM",
-    title: "GeM portal payment overdue by 65 days from buyer",
-    preview: "Consignee Receipt (CRAC) was generated 2 months back. Buyer has not disbursed payment...",
+    title: "GeM procurement order payment overdue by 68 days from Public Sector Undertaking buyer",
+    preview: "Consignee Receipt (CRAC) approved 2 months ago for structural steel girders worth ₹28.5 Lakhs...",
     status: "Escalated",
-    priority: "Urgent",
+    priority: "High Priority",
     time: "2h ago",
     aiMatch: "98%",
-    category: "MSME Samadhaan / GeM Terms",
-    hsCode: "8207.30 (Tooling)",
-    sentiment: "Escalated",
+    category: "MSME Samadhaan / Delayed Payment",
+    hsCode: "7308.90 (Fabricated Structural Steel)",
+    sentiment: "High Financial Distress",
     messages: [
       {
         id: 1,
         type: "user",
-        sender: "Gurpreet Singh (Precision Tools)",
+        sender: "Bikram Kishore Jena (Proprietor)",
         time: "08:15 AM",
-        text: "Sir, we supplied engineering fixtures worth ₹14.5 Lakhs under GeM Order #GEM-2026-B-1902 to a railway manufacturing unit. CRAC was issued on 15th March. It is now over 65 days, and payment is withheld without explanation. As an MSE unit, our working capital is locked."
+        text: "Sir, we are an MSE fabrication unit in Rourkela. We supplied fabricated steel bridge components worth ₹28,50,000/- under GeM Order #GEM-2026-B-4412 to a railway PSU manufacturing workshop. \n\nCRAC was generated on 24th January 2026. Today it has been 68 days. The buyer finance branch is neither disbursing payment nor replying to our letters. Our factory workers' wages are held up. Please take penal action under GeM GTC and MSMED Act."
       },
       {
         id: 2,
         type: "system",
-        text: "🤖 AI Knowledge Triage: Flagged MSME Development Act Section 15 violation. Auto-escalated to GeM Nodal Officer."
+        text: "🤖 AI Intelligence Triage: Severe violation of MSMED Act Section 15 and Ministry of Finance OM on GeM GTC. High priority auto-escalation triggered."
       }
     ],
     clauses: [
       {
-        title: "GeM General Terms & Conditions (GTC) Clause 12",
-        citation: "Ministry of Finance OM F.6/18/2019-PPD",
-        text: "Buyer must release 100% payment within 10 calendar days of CRAC generation for MSME sellers. In case of delay beyond 10 days, penal interest of 1% per month is auto-levied on the buyer organization and reported to the Department of Expenditure."
+        title: "GeM General Terms & Conditions (GTC) Clause 12 - 10-Day MSME Rule",
+        citation: "Department of Expenditure OM F.6/18/2019-PPD",
+        text: "Government buyers must release 100% payment within 10 calendar days of CRAC generation for MSME suppliers. Delayed payments attract mandatory penal interest of 1% per month deducted directly from the buyer organization's budgetary allocation."
+      },
+      {
+        title: "MSME Development Act 2006 - Section 16",
+        citation: "Statutory Law of India",
+        text: "Where buyer fails to make payment within 45 days, buyer is liable to pay compound interest with monthly rests to the supplier at three times the Bank Rate notified by RBI."
       }
     ],
-    suggestedDraft: "Dear Shri Gurpreet Singh,\n\nWe have reviewed GeM Order #GEM-2026-B-1902. Under Clause 12 of GeM GTC and Department of Expenditure guidelines, the buyer was mandated to disburse payment within 10 days of CRAC.\n\nAction Taken:\n1. A high-priority formal notice has been dispatched to the Nodal Finance Officer of the concerned purchasing unit.\n2. In accordance with Section 16 of the MSMED Act, compound penal interest is applicable for this delayed period.\n3. You are also advised to lodge a parallel claim on the MSME Samadhaan portal referencing this ticket ID.\n\nWe are actively monitoring this escalation for resolution within 72 hours.\n\nRegards,\nGeM Seller Assistance Cell",
+    suggestedDraft: "Dear Shri Bikram Kishore Jena,\n\nRef: GeM Order #GEM-2026-B-4412 - Urgent Payment Recovery Notice.\n\nThe Ministry takes serious cognizance of delayed payments to MSME manufacturers.\n\nImmediate Actions Executed:\n1. A Red-Flag Non-Compliance Notice has been served to the Director of Finance of the concerned PSU buyer under GeM GTC Clause 12.\n2. The buyer's purchasing rights on the GeM portal are placed on temporary freeze until invoice clearance is confirmed.\n3. Penal interest under Section 16 of the MSMED Act is calculating automatically.\n\nPayment disbursement is tracked under 72-hour emergency escalation.\n\nWarm regards,\nGeM MSME Redressal Cell",
     profile: {
       scale: "Micro Enterprise (MSE)",
-      turnover: "₹1.8 Cr / Year",
-      city: "Ludhiana, Punjab",
-      sector: "Heavy Engineering & Tooling"
+      turnover: "₹2.4 Crore / Year",
+      city: "Rourkela, Odisha",
+      sector: "Heavy Metal Fabrication & Structural Steel"
     }
   },
   {
-    id: "TICK-BH-9921",
-    contactName: "श्री बालाजी टेक्सटाइल्स (सूरत)",
-    sender: "Surat, GJ",
+    id: "FILE-AGRI/2026/5120",
+    contactName: "Nashik Valley Agro Cold-Chain Exporters",
+    sender: "Nashik Agri-Zone, Maharashtra",
     iec: "0812938475",
-    gstin: "24AAACS3344M1Z2",
-    channel: "Web Portal (Hindi)",
-    desk: "DGFT Regional Surat",
+    gstin: "27AAACN3344M1Z2",
+    channel: "DGFT Portal (Bhashini Indic)",
+    desk: "APEDA & Agri-Export Desk",
     departmentCode: "DGFT",
-    title: "कस्टम ड्यूटी छूट और एडवांस ऑथराइजेशन स्कीम के तहत फैब्रिक आयात की अनुमति",
-    preview: "हमने पॉलिएस्टर यार्न आयात के लिए एडवांस लाइसेंस आवेदन संख्या #ADV-9901 भरी थी...",
+    title: "कोल्ड-चेन कंटेनर में टेबल अंगूर निर्यात: JNPT पोर्ट पर फाइटोसैनिटरी क्लीयरेंस और सब्सिडी प्रक्रिया",
+    preview: "नाशिक से यूरोप भेजे जाने वाले 10 रीफर कंटेनरों में अंगूरों की शिपमेंट के लिए लैब टेस्ट रिपोर्ट...",
     status: "Open",
     priority: "Normal",
     time: "3h ago",
-    aiMatch: "88%",
-    category: "Advance Authorization (Textiles)",
-    hsCode: "5402.33 (Polyester Yarn)",
-    sentiment: "Neutral",
+    aiMatch: "91%",
+    category: "Agri Perishable Exports (Cold-Chain)",
+    hsCode: "0806.10 (Fresh Table Grapes)",
+    sentiment: "Time-Sensitive Perishable",
     messages: [
       {
         id: 1,
         type: "user",
-        sender: "रमेशभाई पटेल (सूरत)",
+        sender: "सचिन शिंदे (नाशिक द्राक्ष उत्पादक संघ)",
         time: "07:30 AM",
-        text: "नमस्कार अधिकारी महोदय, हमारी फर्म ने रेडीमेड गारमेंट्स निर्यात के लिए पॉलिएस्टर यार्न शून्य कस्टम ड्यूटी पर आयात करने हेतु एडवांस ऑथराइजेशन के लिए आवेदन किया था। क्या 18 महीने की निर्यात बाध्यता (Export Obligation) में छूट या विस्तार मिल सकता है?"
+        text: "नमस्कार अधिकारी महोदय, हमारे नाशिक फार्मर्स कंसोर्टियम ने नीदरलैंड्स (रॉटरडैम) निर्यात के लिए 10 रीफर (रेफ्रिजरेटेड) कंटेनर ताजे टेबल अंगूर तैयार किए हैं। माल JNPT पोर्ट पर 24 घंटे में पहुंच रहा है। \n\nAPEDA के 'GrapeNet' पोर्टल पर फाइटोसैनिटरी डिजिटल सर्टिफिकेट अपलोड कर दिया गया है। क्या पोर्ट पर कस्टम्स द्वारा 'Green Channel' प्राथमिकता क्लीयरेंस और कृषि निर्यात प्रोत्साहन योजना के तहत परिवहन सब्सिडी मिलेगी ताकि तापमान बिगड़ने से फल खराब न हों?"
       },
       {
         id: 2,
         type: "system",
-        text: "🌐 Bhashini Indic Engine: Automatically detected Hindi (hi_IN). Translated query available for officer view."
+        text: "🌐 Bhashini Indic Engine: Automatically detected Marathi/Hindi (mr/hi). Certified translation generated for officer desk."
       }
     ],
     clauses: [
       {
-        title: "विदेश व्यापार नीति (FTP 2023) - पैरा 4.40",
-        citation: "डीजीएफटी अधिसूचना सं. 01/2023",
-        text: "एडवांस ऑथराइजेशन के तहत आयातित कच्चे माल पर निर्यात बाध्यता की मानक अवधि आयात की तारीख से 18 महीने है। क्षेत्रीय प्राधिकारी द्वारा 0.5% कंपोज़िशन शुल्क के भुगतान पर 6 महीने का अतिरिक्त विस्तार दिया जा सकता है।"
+        title: "कृषि निर्यात नीति (AEP 2023) - परिशिष्ट 3बी (नाशिक क्लस्टर)",
+        citation: "वाणिज्य एवं उद्योग मंत्रालय अधिसूचना सं. 14/2023",
+        text: "नाशिक क्लस्टर से यूरोप को निर्यात होने वाले प्रमाणित टेबल अंगूरों के लिए JNPT और न्हावा शेवा बंदरगाह पर 'फास्ट-ट्रैक ग्रीन चैनल' अनिवार्य है। शिपिंग बिल पर GrapeNet नंबर लिंक होने पर 4 घंटे में कस्टम्स LEO जारी करना आवश्यक है।"
       }
     ],
-    suggestedDraft: "प्रिय रमेशभाई पटेल जी,\n\nआपके आवेदन संख्या #ADV-9901 के संबंध में विदेश व्यापार नीति 2023 के पैरा 4.40 के अनुसार:\n\nएडवांस ऑथराइजेशन में निर्यात बाध्यता (EO) की प्रारंभिक अवधि 18 माह होती है। यदि आप इसे बढ़ाना चाहते हैं, तो सूरत DGFT क्षेत्रीय कार्यालय में 0.5% कंपोज़िशन शुल्क के साथ ऑनलाइन 'Extension of Export Obligation' का आवेदन कर सकते हैं। इससे आपको 6 महीने का अतिरिक्त समय प्रदान किया जाएगा।\n\nसादर,\nडीजीएफटी क्षेत्रीय सहायता केंद्र, सूरत",
+    suggestedDraft: "प्रिय श्री सचिन शिंदे जी,\n\nआपके 10 रीफर कंटेनर अंगूर निर्यात (GrapeNet प्रमाणित) के संबंध में कृषि निर्यात नीति 2023 के तहत निर्देश:\n\n1. JNPT पोर्ट पर कस्टम्स कोल्ड-चेन हेल्पडेस्क को आपके कंटेनर नंबरों के साथ अलर्ट भेज दिया गया है।\n2. आपके शिपमेंट को 'ग्रीन चैनल फास्ट-ट्रैक' के तहत 4 घंटे में Let Export Order (LEO) प्रदान किया जाएगा।\n3. कृषि निर्यात नीति के तहत 15% रीफर फ्रेट सब्सिडी आपके ई-बैंकिंग खाते में स्क्रिप रूप में स्वीकृत की जा रही है।\n\nसादर,\nकृषि एवं प्रसंस्कृत खाद्य उत्पाद निर्यात विकास प्राधिकरण (APEDA) हेल्पडेस्क",
     profile: {
-      scale: "Small Enterprise (MSME)",
-      turnover: "₹12.4 Cr / Year",
-      city: "Surat, Gujarat",
-      sector: "Manmade Textile & Garments"
+      scale: "Farmer Producer Organization (FPO / MSME)",
+      turnover: "₹18.5 Crore / Year",
+      city: "Nashik, Maharashtra",
+      sector: "Horticulture Cold-Chain & Perishable Agro-Exports"
     }
   }
 ];
