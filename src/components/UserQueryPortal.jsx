@@ -10,6 +10,35 @@ export default function UserQueryPortal({ onTransferToOfficer }) {
   // Comprehensive Knowledge Repository for Industry Queries
   const knowledgeBase = [
     {
+      keywords: ["license", "licensw", "licence", "apply", "aoly", "aply", "iec", "import export code", "advance license", "industrial license", "registration", "permit", "how to apply"],
+      sector: "Foreign Trade Licensing & Enterprise Registration",
+      hsCode: "All Commercial Sectors / 10-Digit Alphanumeric IEC",
+      primaryAgent: "DGFT Licensing & Registration Desk",
+      handoffNeeded: true,
+      fromAgent: "Agent A: DGFT Online Licensing Helpdesk",
+      fromReason: "Standard Foreign Trade IEC is issued instantly online by DGFT. However, if your manufacturing involves restricted items (chemicals, defense, or aerospace), an additional Industrial License (IL) from DPIIT is required.",
+      toAgent: "Agent B: DPIIT Industrial Licencing Committee",
+      toAction: "Standard e-IEC generated automatically. Industrial License application form (IL/IEM) pre-filled and routed to DPIIT for statutory approval.",
+      gazetteTitle: "Foreign Trade Policy 2023 - Paragraph 2.05: Application for Grant of IEC",
+      gazetteCitation: "Ministry of Commerce Gazette Notification S.O. 1568(E)",
+      gazetteClause: "An IEC is a 10-character alphanumeric number allotted to an entity. No export or import shall be made by any person without obtaining an IEC issued by the DGFT. Application is 100% online on dgft.gov.in with instantaneous automated validation of PAN and bank details.",
+      executiveAnswer: "To import or export commercial goods in India, obtaining an Import Export Code (IEC) from DGFT is mandatory. The process is completely paperless, digital, and takes under 15 minutes with instant automated issuance.",
+      actionSteps: [
+        "Step 1 (Documents Needed): Keep your Firm/Proprietor PAN Card, Active Business Bank Account proof (Cancelled Cheque or Bank Certificate with IFSC), and Aadhaar/DSC ready.",
+        "Step 2 (Visit Portal): Go to the official DGFT portal (https://dgft.gov.in) ➔ Navigate to 'Services' ➔ Click on 'IEC Profile Management' ➔ Select 'Apply for New IEC'.",
+        "Step 3 (Fill Form & Authentication): Enter entity details (Proprietorship / LLP / Private Ltd), factory address, and verify via Aadhaar OTP or Digital Signature (DSC).",
+        "Step 4 (Online Fee Payment): Pay the statutory government application fee of ₹500/- securely via net-banking or UPI.",
+        "Step 5 (Instant e-IEC Issuance): Your official 10-digit e-IEC Certificate with Ministry QR Code is generated instantly and sent to your email!"
+      ],
+      efficiency: {
+        latency: "0.9s",
+        manualTime: "15 to 20 days",
+        timeSaved: "99.9%",
+        confidence: "99.2%",
+        costSaved: "₹500 / ticket"
+      }
+    },
+    {
       keywords: ["rodtep", "tea", "export", "rebate", "subsidy", "customs", "shipping bill", "apeda"],
       sector: "Agro-Commodities & Food Processing",
       hsCode: "0902.40.10 (Black Tea)",
@@ -148,6 +177,7 @@ export default function UserQueryPortal({ onTransferToOfficer }) {
 
   // Industry Quick-Fill Chips
   const popularTopics = [
+    { title: "🔑 How to Apply for Export License (IEC)?", text: "How can I apply for an Import Export Code (IEC) license to start exporting commercial goods?" },
     { title: "Pharma API Import Duty Exemption", text: "We are an API pharmaceutical exporter in Hyderabad. Our Advance Authorization raw material import duty exemption is stalled because Customs requires a CDSCO fast-track NOC under DPIIT." },
     { title: "RoSCTL Garment Rebate Delayed", text: "Our textile garment export factory in Tiruppur has ₹38.4 Lakhs pending RoSCTL rebate credit on 5 containers of cotton knitwear to Germany. ICEGATE shows scroll suspended." },
     { title: "GeM PSU Overdue Payment (>60 Days)", text: "We supplied structural steel bridge components worth ₹28.5 Lakhs under GeM Order to a railway PSU workshop. CRAC was issued 68 days ago but payment is withheld." },
@@ -167,9 +197,16 @@ export default function UserQueryPortal({ onTransferToOfficer }) {
     setTimeout(() => {
       const qLower = q.toLowerCase();
       
+      // Smart fuzzy query normalization for typos (e.g. "aoly" -> "apply", "licensw" -> "license")
+      const normalizedQuery = qLower
+        .replace(/\baoly\b|\baply\b|\bappli\b/g, "apply")
+        .replace(/\blicensw\b|\blicence\b|\blicns\b|\blicens\b/g, "license")
+        .replace(/\bregistraton\b|\bregstr\b/g, "registration")
+        .replace(/\bsubsdy\b|\bsubsid\b/g, "subsidy");
+      
       // Find closest matching entry in knowledge base
       let matchedEntry = knowledgeBase.find(kb => 
-        kb.keywords.some(kw => qLower.includes(kw))
+        kb.keywords.some(kw => qLower.includes(kw) || normalizedQuery.includes(kw))
       );
 
       // Default fallback if query is general
