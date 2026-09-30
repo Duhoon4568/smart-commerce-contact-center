@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
-import Sidebar from './components/Sidebar';
 import ConversationList from './components/ConversationList';
 import ChatWorkspace from './components/ChatWorkspace';
 import RightPanel from './components/RightPanel';
@@ -27,7 +26,7 @@ export default function App() {
         const newMsg = {
           id: Date.now(),
           type: mode === 'reply' ? 'agent' : 'note',
-          sender: mode === 'reply' ? 'Rajesh Sharma (DGFT Officer)' : 'Rajesh Sharma',
+          sender: mode === 'reply' ? 'Rajesh Sharma (DGFT Officer)' : 'Rajesh Sharma (Confidential Note)',
           time: timeStr,
           text: text
         };
@@ -48,7 +47,7 @@ export default function App() {
         const systemMsg = {
           id: Date.now(),
           type: 'system',
-          text: `✅ Ticket marked as 'Resolved' by Officer R. Sharma. Citizen Charter SLA fulfilled.`
+          text: `✅ Grievance Dossier Marked as 'Disposed / Order Issued' by Officer R. Sharma. Citizen Charter SLA fulfilled.`
         };
 
         return {
@@ -67,16 +66,15 @@ export default function App() {
   };
 
   const handleInsertClause = (clauseText) => {
-    // Append clause to active draft or trigger notification
-    alert(`Clause copied for insertion:\n\n"${clauseText}"\n\nYou can paste it directly into your official reply.`);
+    alert(`Gazette Clause attached:\n\n"${clauseText}"\n\nYou can paste it directly into your official order.`);
   };
 
   const handleProposeFaq = () => {
-    alert("✨ AI Knowledge Synthesis Triggered!\n\nA new draft FAQ article has been generated and sent to the DGFT Knowledge Administrator for approval:\n\nTitle: 'Resolving Missing APEDA Code in RoDTEP EDI Transmission'\nCategory: Foreign Trade Policy 2023 > Remissions");
+    alert("✨ AI Knowledge Synthesis Triggered!\n\nA new draft Trade Policy Circular has been generated and queued for Joint Secretary review:\n\nTitle: 'Clarification on APEDA Export Inspection Codes for RoDTEP EDI Claims'\nPolicy Chapter: FTP 2023 > Remissions");
   };
 
   return (
-    <div className="bg-[#0b1120] text-slate-100 h-screen flex flex-col overflow-hidden select-none">
+    <div className="bg-[#080d1a] text-slate-100 h-screen flex flex-col overflow-hidden select-none font-sans">
       <Header
         currentView={currentView}
         setCurrentView={setCurrentView}
@@ -85,13 +83,12 @@ export default function App() {
 
       {currentView === 'inbox' && (
         <div className="flex-1 flex overflow-hidden">
-          <Sidebar activeDesk={activeDesk} setActiveDesk={setActiveDesk} />
-          
           <ConversationList
             tickets={tickets}
             selectedTicketId={selectedTicketId}
             onSelectTicket={setSelectedTicketId}
             activeDesk={activeDesk}
+            setActiveDesk={setActiveDesk}
           />
 
           <ChatWorkspace

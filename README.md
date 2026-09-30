@@ -39,13 +39,12 @@ commerce-contact-center/
     ├── data/
     │   └── mockTickets.js       # Real-world Ministry tickets & gazette clauses
     └── components/
-        ├── Header.jsx           # Top navigation & system status
-        ├── Sidebar.jsx          # Department navigation rail (Desks & Inboxes)
-        ├── ConversationList.jsx # Ticket feed, filtering & search
-        ├── ChatWorkspace.jsx    # Active conversation thread & composer
-        ├── RightPanel.jsx       # AI Copilot RAG, Enterprise Profile, SLA
-        ├── KnowledgeBaseView.jsx# Gazette library & ingestion manager
-        └── AnalyticsView.jsx    # Resolution metrics & sector trends
+        ├── Header.jsx           # Executive Ministry header & National HUD stats
+        ├── ConversationList.jsx # Grievance dossiers, department filter chips & search
+        ├── ChatWorkspace.jsx    # e-Office grievance redressal & dispatch chamber
+        ├── RightPanel.jsx       # Gazette Intelligence (RAG), ICEGATE verification, SLA
+        ├── KnowledgeBaseView.jsx# National Gazette & policy vector ingestion
+        └── AnalyticsView.jsx    # Resolution metrics & sector query trends
 ```
 
 ---
